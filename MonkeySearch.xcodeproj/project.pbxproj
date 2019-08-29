@@ -41,6 +41,7 @@
 		56000A8523171C13007F6EAE /* MonkeySearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeySearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56000A8923171C13007F6EAE /* MonkeySearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkeySearchTests.swift; sourceTree = "<group>"; };
 		56000A8B23171C13007F6EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5631F3CB2317B258008A0B87 /* MonkeySearch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MonkeySearch.entitlements; sourceTree = "<group>"; };
 		568E8AFA231725B400522EC2 /* BrowserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +92,7 @@
 				56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */,
 				56000A8023171C13007F6EAE /* Info.plist */,
 				56000A7323171C11007F6EAE /* MonkeySearch.xcdatamodeld */,
+				5631F3CB2317B258008A0B87 /* MonkeySearch.entitlements */,
 				56000A7A23171C13007F6EAE /* Preview Content */,
 			);
 			path = MonkeySearch;
@@ -370,7 +372,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MonkeySearch/MonkeySearch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MonkeySearch/Preview Content\"";
 				DEVELOPMENT_TEAM = 72CQ273HEW;
 				ENABLE_PREVIEWS = YES;
@@ -381,6 +385,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.boucekm.MonkeySearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -390,7 +395,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MonkeySearch/MonkeySearch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MonkeySearch/Preview Content\"";
 				DEVELOPMENT_TEAM = 72CQ273HEW;
 				ENABLE_PREVIEWS = YES;
@@ -401,6 +408,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.boucekm.MonkeySearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
