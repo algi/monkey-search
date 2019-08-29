@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,9 @@
 		56000A7C23171C13007F6EAE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56000A7B23171C13007F6EAE /* Preview Assets.xcassets */; };
 		56000A7F23171C13007F6EAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */; };
 		56000A8A23171C13007F6EAE /* MonkeySearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56000A8923171C13007F6EAE /* MonkeySearchTests.swift */; };
+		5631F3D62317EDA9008A0B87 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 5631F3D52317EDA9008A0B87 /* SwiftSoup */; };
+		5631F3D82317EF46008A0B87 /* FoxtonsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */; };
+		5631F3DA2317F32B008A0B87 /* FoxtonsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */; };
 		568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568E8AFA231725B400522EC2 /* BrowserDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +45,10 @@
 		56000A8923171C13007F6EAE /* MonkeySearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkeySearchTests.swift; sourceTree = "<group>"; };
 		56000A8B23171C13007F6EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5631F3CB2317B258008A0B87 /* MonkeySearch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MonkeySearch.entitlements; sourceTree = "<group>"; };
+		5631F3D02317CFD0008A0B87 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
+		5631F3D22317D027008A0B87 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoxtonsParser.swift; sourceTree = "<group>"; };
+		5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoxtonsParserTests.swift; sourceTree = "<group>"; };
 		568E8AFA231725B400522EC2 /* BrowserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5631F3D62317EDA9008A0B87 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +77,7 @@
 				56000A6E23171C11007F6EAE /* MonkeySearch */,
 				56000A8823171C13007F6EAE /* MonkeySearchTests */,
 				56000A6D23171C11007F6EAE /* Products */,
+				5631F3CF2317CFD0008A0B87 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +97,7 @@
 				56000A7123171C11007F6EAE /* SceneDelegate.swift */,
 				56000A7623171C11007F6EAE /* ContentView.swift */,
 				568E8AFA231725B400522EC2 /* BrowserDetailView.swift */,
+				5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */,
 				56000A7823171C13007F6EAE /* Assets.xcassets */,
 				56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */,
 				56000A8023171C13007F6EAE /* Info.plist */,
@@ -110,9 +120,19 @@
 			isa = PBXGroup;
 			children = (
 				56000A8923171C13007F6EAE /* MonkeySearchTests.swift */,
+				5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */,
 				56000A8B23171C13007F6EAE /* Info.plist */,
 			);
 			path = MonkeySearchTests;
+			sourceTree = "<group>";
+		};
+		5631F3CF2317CFD0008A0B87 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5631F3D22317D027008A0B87 /* libxml2.tbd */,
+				5631F3D02317CFD0008A0B87 /* libxml2.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,6 +151,9 @@
 			dependencies = (
 			);
 			name = MonkeySearch;
+			packageProductDependencies = (
+				5631F3D52317EDA9008A0B87 /* SwiftSoup */,
+			);
 			productName = MonkeySearch;
 			productReference = 56000A6C23171C11007F6EAE /* MonkeySearch.app */;
 			productType = "com.apple.product-type.application";
@@ -181,6 +204,9 @@
 				Base,
 			);
 			mainGroup = 56000A6323171C11007F6EAE;
+			packageReferences = (
+				5631F3D42317EDA9008A0B87 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = 56000A6D23171C11007F6EAE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -218,6 +244,7 @@
 			files = (
 				56000A7023171C11007F6EAE /* AppDelegate.swift in Sources */,
 				568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */,
+				5631F3D82317EF46008A0B87 /* FoxtonsParser.swift in Sources */,
 				56000A7523171C11007F6EAE /* MonkeySearch.xcdatamodeld in Sources */,
 				56000A7723171C11007F6EAE /* ContentView.swift in Sources */,
 				56000A7223171C11007F6EAE /* SceneDelegate.swift in Sources */,
@@ -228,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5631F3DA2317F32B008A0B87 /* FoxtonsParserTests.swift in Sources */,
 				56000A8A23171C13007F6EAE /* MonkeySearchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +402,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MonkeySearch/MonkeySearch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MonkeySearch/Preview Content\"";
 				DEVELOPMENT_TEAM = 72CQ273HEW;
 				ENABLE_PREVIEWS = YES;
@@ -385,7 +412,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.boucekm.MonkeySearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -397,7 +424,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MonkeySearch/MonkeySearch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MonkeySearch/Preview Content\"";
 				DEVELOPMENT_TEAM = 72CQ273HEW;
 				ENABLE_PREVIEWS = YES;
@@ -408,7 +434,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cz.boucekm.MonkeySearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -489,6 +515,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5631F3D42317EDA9008A0B87 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5631F3D52317EDA9008A0B87 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5631F3D42317EDA9008A0B87 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		56000A7323171C11007F6EAE /* MonkeySearch.xcdatamodeld */ = {
