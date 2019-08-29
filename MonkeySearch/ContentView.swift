@@ -14,25 +14,39 @@ extension Estate: Identifiable {}
 
 struct ContentView: View {
 
-    @Environment(\.managedObjectContext) var viewContext: NSManagedObjectContext
+//    @Environment(\.managedObjectContext) var viewContext: NSManagedObjectContext
     @FetchRequest(fetchRequest: fetchRequest()) var data: FetchedResults<Estate>
 
     var body: some View {
         NavigationView {
-            List(data) { row in
-                NavigationLink(destination: BrowserDetailView(entity: row)) {
-                    HStack {
-                        Text(row.name ?? "<Unknown>")
-                        Spacer()
-                        Text("£\(row.price)")
-                            .foregroundColor(.gray)
+            VStack(alignment: .leading) {
+                List(data) { row in
+                    NavigationLink(destination: BrowserDetailView(entity: row)) {
+                        HStack {
+                            Text(row.name ?? "<Unknown>")
+                            Spacer()
+                            Text("£\(row.price)")
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
+
+                HStack {
+                    Text("Status:").fontWeight(.bold)
+                    Text("Done")
+                }
+//                .background(Rectangle().foregroundColor(.gray))
+                .padding()
             }
             .navigationBarTitle("Browser")
             .navigationBarItems(trailing: Button("Reload") {
-                // fire event, where background fetch operation will be performed
-                print("Reload not yet implemented.")
+                // fetch new data on background queue, then update CoreData
+                // @FetchRequest will automatically reload the data
+
+                let newRecord = Estate(context: AppDelegate.shared.persistentContainer.viewContext)
+
+                newRecord.name = "New Record"
+                newRecord.status = "New"
             })
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
         }
@@ -50,5 +64,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environment(\.managedObjectContext, AppDelegate.shared.persistentContainer.viewContext)
     }
 }

@@ -26,7 +26,7 @@ struct BrowserDetailView: View {
             }
 
             Text("Description:").fontWeight(.bold)
-            Text(entity.text ?? "No description")
+            Text(entity.text ?? "No description provided.")
 
             Text("Photos:").fontWeight(.bold)
             Text("No photos available.") // TODO: fotky
