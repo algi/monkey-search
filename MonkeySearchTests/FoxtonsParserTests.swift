@@ -13,19 +13,19 @@ class FoxtonsParserTests: XCTestCase {
 
     func testParseSimpleFile() throws {
 
+        guard let fileURL = Bundle(for: FoxtonsParserTests.self).url(forResource: "foxtons", withExtension: "html") else {
+            XCTFail("Unable to find file: 'foxtons.html'")
+            return
+        }
+
+        let html = try String(contentsOf: fileURL)
+
         let parser = FoxtonsParser()
         var result = [EstateRecord]()
 
         self.measure {
             do {
-                result = try parser.parse(
-                    """
-                    <html>
-                        <body>
-                            <h6>Test</h6>
-                        </body>
-                    </html>
-                    """)
+                result = try parser.parse(html)
             }
             catch {
                 XCTFail(error.localizedDescription)

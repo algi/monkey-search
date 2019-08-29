@@ -11,7 +11,13 @@ import SwiftSoup
 
 struct EstateRecord {
 
-    // copy & paste from entity
+    let agency: String
+    let detailURL: URL
+    let externalID: String
+    let name: String
+    let price: Int
+    let status: String
+    let text: String
 
 }
 
@@ -27,7 +33,7 @@ class FoxtonsParser: NSObject, AgencyParser {
         let document = try SwiftSoup.parse(html)
 
         let result = try document.select("h6")
-        print("Got some results: ", result)
+        print("Got some results: ", result.count)
 
         return [EstateRecord]()
     }
