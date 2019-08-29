@@ -9,6 +9,9 @@
 import CoreData
 import SwiftUI
 
+// hmm... 🤔
+extension Estate: Identifiable {}
+
 struct ContentView: View {
 
     @Environment(\.managedObjectContext) var viewContext: NSManagedObjectContext
@@ -16,12 +19,14 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                HStack {
-                    Text("Property Name")
-                    Spacer()
-                    Text("£400 pw")
-                        .foregroundColor(.gray)
+            List(data) { row in
+                NavigationLink(destination: BrowserDetailView(entity: row)) {
+                    HStack {
+                        Text(row.name ?? "<Unknown>")
+                        Spacer()
+                        Text("£\(row.price)")
+                            .foregroundColor(.gray)
+                    }
                 }
             }
             .navigationBarTitle("Browser")

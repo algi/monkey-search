@@ -12,7 +12,11 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    static var shared: AppDelegate {
+        get {
+            return UIApplication.shared.delegate as! AppDelegate
+        }
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -43,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentContainer(name: "MonkeySearch")
+        container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -58,6 +64,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
+
+            let sampleData = Estate(context: container.viewContext)
+            sampleData.agency = "Foxtons"
+            sampleData.detailURL = URL(string: "/properties-to-rent/n3/chpk3655265")
+            sampleData.name = "44 Priory Road, NW6"
+            sampleData.price = 400
+            sampleData.status = "New"
+            sampleData.text = "Lorem ipsum..."
         })
         return container
     }()

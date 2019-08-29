@@ -15,6 +15,7 @@
 		56000A7C23171C13007F6EAE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56000A7B23171C13007F6EAE /* Preview Assets.xcassets */; };
 		56000A7F23171C13007F6EAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */; };
 		56000A8A23171C13007F6EAE /* MonkeySearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56000A8923171C13007F6EAE /* MonkeySearchTests.swift */; };
+		568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568E8AFA231725B400522EC2 /* BrowserDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		56000A8523171C13007F6EAE /* MonkeySearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeySearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56000A8923171C13007F6EAE /* MonkeySearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonkeySearchTests.swift; sourceTree = "<group>"; };
 		56000A8B23171C13007F6EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		568E8AFA231725B400522EC2 /* BrowserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				56000A6F23171C11007F6EAE /* AppDelegate.swift */,
 				56000A7123171C11007F6EAE /* SceneDelegate.swift */,
 				56000A7623171C11007F6EAE /* ContentView.swift */,
+				568E8AFA231725B400522EC2 /* BrowserDetailView.swift */,
 				56000A7823171C13007F6EAE /* Assets.xcassets */,
 				56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */,
 				56000A8023171C13007F6EAE /* Info.plist */,
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				56000A7023171C11007F6EAE /* AppDelegate.swift in Sources */,
+				568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */,
 				56000A7523171C11007F6EAE /* MonkeySearch.xcdatamodeld in Sources */,
 				56000A7723171C11007F6EAE /* ContentView.swift in Sources */,
 				56000A7223171C11007F6EAE /* SceneDelegate.swift in Sources */,
