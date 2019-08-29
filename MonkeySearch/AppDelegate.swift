@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             sampleData.name = "44 Priory Road, NW6"
             sampleData.price = 400
             sampleData.status = "New"
-            sampleData.text = "Lorem ipsum..."
+            sampleData.text = "An excellent two bedroom, first floor apartment located in an imposing period conversion and boasting high ceilings and wood floors, plus access to spacious communal gardens."
         })
         return container
     }()
