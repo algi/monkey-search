@@ -17,6 +17,9 @@
 		5631F3D82317EF46008A0B87 /* FoxtonsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */; };
 		5631F3DA2317F32B008A0B87 /* FoxtonsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */; };
 		5631F3DC2317F980008A0B87 /* foxtons.html in Resources */ = {isa = PBXBuildFile; fileRef = 5631F3DB2317F980008A0B87 /* foxtons.html */; };
+		563B791B231854ED009E8E45 /* DextersParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B791A231854ED009E8E45 /* DextersParser.swift */; };
+		563B791D23185554009E8E45 /* DextersParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B791C23185554009E8E45 /* DextersParserTests.swift */; };
+		563B791F23185743009E8E45 /* dexters.html in Resources */ = {isa = PBXBuildFile; fileRef = 563B791E23185743009E8E45 /* dexters.html */; };
 		568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568E8AFA231725B400522EC2 /* BrowserDetailView.swift */; };
 		56B7B9EB2317FF8A001A0620 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 56B7B9EA2317FF8A001A0620 /* Kanna */; };
 		56CD1D3A231801C90091285B /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 56CD1D39231801C90091285B /* Kanna */; };
@@ -50,6 +53,9 @@
 		5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoxtonsParser.swift; sourceTree = "<group>"; };
 		5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoxtonsParserTests.swift; sourceTree = "<group>"; };
 		5631F3DB2317F980008A0B87 /* foxtons.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = foxtons.html; sourceTree = "<group>"; };
+		563B791A231854ED009E8E45 /* DextersParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DextersParser.swift; sourceTree = "<group>"; };
+		563B791C23185554009E8E45 /* DextersParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DextersParserTests.swift; sourceTree = "<group>"; };
+		563B791E23185743009E8E45 /* dexters.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dexters.html; sourceTree = "<group>"; };
 		568E8AFA231725B400522EC2 /* BrowserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +105,7 @@
 				56000A7123171C11007F6EAE /* SceneDelegate.swift */,
 				56000A7623171C11007F6EAE /* ContentView.swift */,
 				568E8AFA231725B400522EC2 /* BrowserDetailView.swift */,
+				563B791A231854ED009E8E45 /* DextersParser.swift */,
 				5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */,
 				56000A7823171C13007F6EAE /* Assets.xcassets */,
 				56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */,
@@ -121,7 +128,9 @@
 		56000A8823171C13007F6EAE /* MonkeySearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				563B791C23185554009E8E45 /* DextersParserTests.swift */,
 				5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */,
+				563B791E23185743009E8E45 /* dexters.html */,
 				5631F3DB2317F980008A0B87 /* foxtons.html */,
 				56000A8B23171C13007F6EAE /* Info.plist */,
 			);
@@ -237,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				563B791F23185743009E8E45 /* dexters.html in Resources */,
 				5631F3DC2317F980008A0B87 /* foxtons.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +261,7 @@
 				56000A7023171C11007F6EAE /* AppDelegate.swift in Sources */,
 				568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */,
 				5631F3D82317EF46008A0B87 /* FoxtonsParser.swift in Sources */,
+				563B791B231854ED009E8E45 /* DextersParser.swift in Sources */,
 				56000A7523171C11007F6EAE /* MonkeySearch.xcdatamodeld in Sources */,
 				56000A7723171C11007F6EAE /* ContentView.swift in Sources */,
 				56000A7223171C11007F6EAE /* SceneDelegate.swift in Sources */,
@@ -261,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				563B791D23185554009E8E45 /* DextersParserTests.swift in Sources */,
 				5631F3DA2317F32B008A0B87 /* FoxtonsParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
