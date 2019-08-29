@@ -29,6 +29,8 @@ protocol AgencyParser {
 
 class FoxtonsParser: NSObject, AgencyParser {
 
+    private static let baseURL = "https://www.foxtons.co.uk"
+
     func parse(_ html: String) throws -> [EstateRecord] {
         let document = try HTML(html: html, encoding: .utf8)
         var result = [EstateRecord]()
@@ -39,7 +41,7 @@ class FoxtonsParser: NSObject, AgencyParser {
                 let recordID = propertySummary.xpath("./@id").first?.text,
                 let propertyName = propertySummary.xpath("./h6").first?.text,
                 let detailLink = propertySummary.xpath("./h6/a/@href").first?.text,
-                let detailURL = URL(string: "https://www.foxtons.co.uk\(detailLink)"),
+                let detailURL = URL(string: "\(FoxtonsParser.baseURL)\(detailLink)"),
                 let price = propertySummary.xpath("./h2/strong/data").first?.text
             else {
                 throw ParserError.missingField // TODO: add field name
