@@ -32,6 +32,14 @@ class FoxtonsParserTests: XCTestCase {
             }
         }
 
-        XCTAssertEqual(result.count, 0)
+        XCTAssertEqual(result.count, 64)
+
+        XCTAssertEqual(result.first?.agency, "Foxtons")
+        XCTAssertEqual(result.first?.detailURL, URL(string: "https://www.foxtons.co.uk/properties-to-rent/n3/chpk3655265"))
+        XCTAssertEqual(result.first?.externalID, "property_1110390")
+        XCTAssertEqual(result.first?.name, "Mountfield Road, Finchley, N3")
+        XCTAssertEqual(result.first?.price, "£484.62")
+        XCTAssertEqual(result.first?.status, "New")
+        XCTAssertEqual(result.first?.text, "xxx") // TODO: fetch description
     }
 }

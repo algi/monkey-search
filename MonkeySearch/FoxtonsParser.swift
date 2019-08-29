@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftSoup
+import Kanna
 
 struct EstateRecord {
 
@@ -15,7 +15,7 @@ struct EstateRecord {
     let detailURL: URL
     let externalID: String
     let name: String
-    let price: Int
+    let price: String
     let status: String
     let text: String
 
@@ -30,11 +30,33 @@ protocol AgencyParser {
 class FoxtonsParser: NSObject, AgencyParser {
 
     func parse(_ html: String) throws -> [EstateRecord] {
-        let document = try SwiftSoup.parse(html)
+        let document = try HTML(html: html, encoding: .utf8)
+        var result = [EstateRecord]()
 
-        let result = try document.select("h6")
-        print("Got some results: ", result.count)
+        for propertySummary in document.xpath("//div[@class='property_summary']") {
 
-        return [EstateRecord]()
+            guard
+                let recordID = propertySummary.xpath("./@id").first?.text,
+                let propertyName = propertySummary.xpath("./h6").first?.text,
+                let detailLink = propertySummary.xpath("./h6/a/@href").first?.text,
+                let detailURL = URL(string: "https://www.foxtons.co.uk\(detailLink)"),
+                let price = propertySummary.xpath("./h2/strong/data").first?.text
+            else {
+                print("Invalid record") // TODO: error handling
+                continue
+            }
+
+            let record = EstateRecord(agency: "Foxtons",
+                                      detailURL: detailURL,
+                                      externalID: recordID,
+                                      name: propertyName,
+                                      price: "£\(price)",
+                                      status: "New",
+                                      text: "xxx") // TODO: property description
+
+            result.append(record)
+        }
+
+        return result
     }
 }
