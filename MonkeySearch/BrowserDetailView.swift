@@ -46,7 +46,9 @@ struct BrowserDetailView: View {
         .padding()
         .navigationBarTitle(entity.name ?? "Real Estate Detail")
         .navigationBarItems(trailing: Button("Open in browser") {
-            // ...
+            guard let detailURL = self.entity.detailURL else { return }
+
+            UIApplication.shared.open(detailURL)
         })
     }
 }
@@ -56,6 +58,7 @@ private func previewData() -> Estate {
     let result = Estate(context: AppDelegate.shared.persistentContainer.viewContext)
 
     result.agency = "Foxtons"
+    result.detailURL = URL(string: "https://www.foxtons.co.uk/properties-to-rent/nw3/hmpd0183781")
     result.text = "An excellent two bedroom, first floor apartment located in an imposing period conversion and boasting high ceilings and wood floors, plus access to spacious communal gardens."
     result.name = "44 Priory Road"
     result.price = 400

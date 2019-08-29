@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let sampleData = Estate(context: container.viewContext)
             sampleData.agency = "Foxtons"
-            sampleData.detailURL = URL(string: "/properties-to-rent/n3/chpk3655265")
+            sampleData.detailURL = URL(string: "https://www.foxtons.co.uk/properties-to-rent/nw3/hmpd0183781")
             sampleData.name = "44 Priory Road, NW6"
             sampleData.price = 400
             sampleData.status = "New"
