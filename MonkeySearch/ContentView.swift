@@ -14,7 +14,6 @@ extension Estate: Identifiable {}
 
 struct ContentView: View {
 
-//    @Environment(\.managedObjectContext) var viewContext: NSManagedObjectContext
     @FetchRequest(fetchRequest: fetchRequest()) var data: FetchedResults<Estate>
 
     var body: some View {
@@ -35,30 +34,27 @@ struct ContentView: View {
                     Text("Status:").fontWeight(.bold)
                     Text("Done")
                 }
-//                .background(Rectangle().foregroundColor(.gray))
                 .padding()
             }
             .navigationBarTitle("Browser")
             .navigationBarItems(trailing: Button("Reload") {
-                // fetch new data on background queue, then update CoreData
-                // @FetchRequest will automatically reload the data
-
-                let newRecord = Estate(context: AppDelegate.shared.persistentContainer.viewContext)
-
-                newRecord.name = "New Record"
-                newRecord.status = "New"
+                fetchNewData()
             })
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
         }
     }
+}
 
-    static func fetchRequest() -> NSFetchRequest<Estate> {
-        let request: NSFetchRequest<Estate> = Estate.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.name, ascending: true)]
-        request.predicate = NSPredicate(format: "status == %@", "New");
+private func fetchRequest() -> NSFetchRequest<Estate> {
+    let request: NSFetchRequest<Estate> = Estate.fetchRequest()
+    request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.name, ascending: true)]
+    request.predicate = NSPredicate(format: "status == %@", "New");
 
-        return request
-    }
+    return request
+}
+
+private func fetchNewData() {
+    // ...
 }
 
 struct ContentView_Previews: PreviewProvider {
