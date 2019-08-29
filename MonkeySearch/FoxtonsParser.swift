@@ -42,8 +42,7 @@ class FoxtonsParser: NSObject, AgencyParser {
                 let detailURL = URL(string: "https://www.foxtons.co.uk\(detailLink)"),
                 let price = propertySummary.xpath("./h2/strong/data").first?.text
             else {
-                print("Invalid record") // TODO: error handling
-                continue
+                throw ParserError.missingField // TODO: add field name
             }
 
             let record = EstateRecord(agency: "Foxtons",
@@ -59,4 +58,8 @@ class FoxtonsParser: NSObject, AgencyParser {
 
         return result
     }
+}
+
+enum ParserError: Error {
+    case missingField
 }
