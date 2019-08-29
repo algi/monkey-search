@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BrowserDetailView: View {
 
-    let entity: Estate
+    let entity: EstateRecord
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -22,11 +22,11 @@ struct BrowserDetailView: View {
 
             HStack {
                 Text("Agency:").fontWeight(.bold)
-                Text(entity.agency ?? "None")
+                Text(entity.agency)
             }
 
             Text("Description:").fontWeight(.bold)
-            Text(entity.text ?? "No description provided.")
+            Text(entity.text)
 
             Text("Photos:").fontWeight(.bold)
             Text("No photos available.") // TODO: fotky
@@ -44,26 +44,22 @@ struct BrowserDetailView: View {
             }
         }
         .padding()
-        .navigationBarTitle(entity.name ?? "Real Estate Detail")
+        .navigationBarTitle(entity.name)
         .navigationBarItems(trailing: Button("Open in browser") {
-            guard let detailURL = self.entity.detailURL else { return }
-
-            UIApplication.shared.open(detailURL)
+            UIApplication.shared.open(self.entity.detailURL)
         })
     }
 }
 
 #if DEBUG
-private func previewData() -> Estate {
-    let result = Estate(context: AppDelegate.shared.persistentContainer.viewContext)
-
-    result.agency = "Foxtons"
-    result.detailURL = URL(string: "https://www.foxtons.co.uk/properties-to-rent/nw3/hmpd0183781")
-    result.text = "An excellent two bedroom, first floor apartment located in an imposing period conversion and boasting high ceilings and wood floors, plus access to spacious communal gardens."
-    result.name = "44 Priory Road"
-    result.price = 400
-
-    return result
+private func previewData() -> EstateRecord {
+    return EstateRecord(agency: "Foxtons",
+                        detailURL: URL(string: "https://www.foxtons.co.uk/properties-to-rent/nw3/hmpd0183781")!,
+                        id: "1",
+                        name: "44 Priory Road",
+                        price: "400",
+                        status: "New",
+                        text: "An excellent two bedroom, first floor apartment located in an imposing period conversion and boasting high ceilings and wood floors, plus access to spacious communal gardens.")
 }
 
 struct BrowserDetailView_Previews: PreviewProvider {

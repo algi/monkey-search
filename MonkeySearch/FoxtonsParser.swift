@@ -9,11 +9,11 @@
 import Foundation
 import Kanna
 
-struct EstateRecord {
+struct EstateRecord: Identifiable {
 
     let agency: String
     let detailURL: URL
-    let externalID: String
+    let id: String
     let name: String
     let price: String
     let status: String
@@ -48,7 +48,7 @@ class FoxtonsParser: NSObject, AgencyParser {
 
             let record = EstateRecord(agency: "Foxtons",
                                       detailURL: detailURL,
-                                      externalID: recordID,
+                                      id: recordID,
                                       name: propertyName,
                                       price: "£\(price)",
                                       status: "New",
