@@ -6,11 +6,11 @@
 //  Copyright © 2019 Marian Bouček. All rights reserved.
 //
 
-import CoreData
+//import CoreData
 import SwiftUI
 
 // hmm... 🤔
-extension Estate: Identifiable {}
+//extension Estate: Identifiable {}
 
 struct ContentView: View {
 
@@ -42,13 +42,13 @@ struct ContentView: View {
     }
 }
 
-private func fetchRequest() -> NSFetchRequest<Estate> {
-    let request: NSFetchRequest<Estate> = Estate.fetchRequest()
-    request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.name, ascending: true)]
-    request.predicate = NSPredicate(format: "status == %@", "New");
-
-    return request
-}
+//private func fetchRequest() -> NSFetchRequest<Estate> {
+//    let request: NSFetchRequest<Estate> = Estate.fetchRequest()
+//    request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.name, ascending: true)]
+//    request.predicate = NSPredicate(format: "status == %@", "New");
+//
+//    return request
+//}
 
 private func fetchNewData(completionHandler: @escaping ([EstateRecord]) -> Void) {
     guard let fetchURL = URL(string: "https://www.foxtons.co.uk/properties-to-rent/muswell-hill-n10/?price_to=500&bedrooms_from=2&expand=2") else {
@@ -66,8 +66,6 @@ private func fetchNewData(completionHandler: @escaping ([EstateRecord]) -> Void)
             print("Unable to find location with downloaded data.")
             return
         }
-
-        print("Got document at location: \(location)")
 
         do {
             let html = try String(contentsOf: location)
