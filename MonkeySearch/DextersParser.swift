@@ -20,12 +20,12 @@ class DextersParser: AgencyParser {
         for item in document.xpath("//li[@class='result item to-let infinite-item']") {
 
             guard
-                let detailLink = item.xpath("./div/h3/a/@href").first?.text,
+                let detailLink = item.at_xpath("./div/h3/a/@href")?.text,
                 let detailURL = URL(string: "\(DextersParser.baseURL)\(detailLink)"),
-                let recordID = item.xpath("./@data-property-id").first?.text,
-                let name = item.xpath("./div/h3").first?.text,
-                let price = item.xpath("./div/span/span/@data-price").first?.text,
-                let text = item.xpath("./div/div").first?.text
+                let recordID = item.at_xpath("./@data-property-id")?.text,
+                let name = item.at_xpath("./div/h3")?.text,
+                let price = item.at_xpath("./div/span/span/@data-price")?.text,
+                let text = item.at_xpath("./div/div")?.text
             else {
                 throw ParserError.missingField // TODO: field name
             }

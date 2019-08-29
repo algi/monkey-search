@@ -38,12 +38,12 @@ class FoxtonsParser: NSObject, AgencyParser {
         for item in document.xpath("//div[@class='property_summary']") {
 
             guard
-                let recordID = item.xpath("./@id").first?.text,
-                let propertyName = item.xpath("./h6").first?.text,
-                let detailLink = item.xpath("./h6/a/@href").first?.text,
+                let recordID = item.at_xpath("./@id")?.text,
+                let propertyName = item.at_xpath("./h6")?.text,
+                let detailLink = item.at_xpath("./h6/a/@href")?.text,
                 let detailURL = URL(string: "\(FoxtonsParser.baseURL)\(detailLink)"),
-                let price = item.xpath("./h2/strong/data").first?.text,
-                let description = item.xpath("./p[@class='description']").first?.text
+                let price = item.at_xpath("./h2/strong/data")?.text,
+                let description = item.at_xpath("./p[@class='description']")?.text
             else {
                 throw ParserError.missingField // TODO: add field name
             }
