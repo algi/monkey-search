@@ -40,6 +40,8 @@ class FoxtonsParserTests: XCTestCase {
         XCTAssertEqual(result.first?.name, "Mountfield Road, Finchley, N3")
         XCTAssertEqual(result.first?.price, "£484.62")
         XCTAssertEqual(result.first?.status, "New")
-        XCTAssertEqual(result.first?.text, "xxx") // TODO: fetch description
+        XCTAssertEqual(result.first?.text,
+            "Set on the ground floor this outstanding 2 bed boasts a stunning kitchen/reception room with bi-fold doors, electric blinds, remote lighting, a Private Garden, 2 generous bedrooms and a modern bathroom.  View more."
+        )
     }
 }

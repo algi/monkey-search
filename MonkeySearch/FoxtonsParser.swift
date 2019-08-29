@@ -42,7 +42,8 @@ class FoxtonsParser: NSObject, AgencyParser {
                 let propertyName = propertySummary.xpath("./h6").first?.text,
                 let detailLink = propertySummary.xpath("./h6/a/@href").first?.text,
                 let detailURL = URL(string: "\(FoxtonsParser.baseURL)\(detailLink)"),
-                let price = propertySummary.xpath("./h2/strong/data").first?.text
+                let price = propertySummary.xpath("./h2/strong/data").first?.text,
+                let description = propertySummary.xpath("./p[@class='description']").first?.text
             else {
                 throw ParserError.missingField // TODO: add field name
             }
@@ -53,7 +54,7 @@ class FoxtonsParser: NSObject, AgencyParser {
                                       name: propertyName,
                                       price: "£\(price)",
                                       status: "New",
-                                      text: "xxx") // TODO: property description
+                                      text: description.trimmingCharacters(in: CharacterSet.newlines))
 
             result.append(record)
         }
