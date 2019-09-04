@@ -107,12 +107,9 @@
 			children = (
 				56000A6F23171C11007F6EAE /* AppDelegate.swift */,
 				56000A7123171C11007F6EAE /* SceneDelegate.swift */,
-				56000A7623171C11007F6EAE /* ContentView.swift */,
-				568E8AFA231725B400522EC2 /* BrowserDetailView.swift */,
+				56B426F72320112800F31650 /* View */,
 				56B426F2231EB15600F31650 /* DataProcessor.swift */,
-				56B426F42320108A00F31650 /* Parsers.swift */,
-				563B791A231854ED009E8E45 /* DextersParser.swift */,
-				5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */,
+				56B426F62320111A00F31650 /* Parser */,
 				56000A7823171C13007F6EAE /* Assets.xcassets */,
 				56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */,
 				56000A8023171C13007F6EAE /* Info.plist */,
@@ -150,6 +147,25 @@
 				5631F3D02317CFD0008A0B87 /* libxml2.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		56B426F62320111A00F31650 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				56B426F42320108A00F31650 /* Parsers.swift */,
+				563B791A231854ED009E8E45 /* DextersParser.swift */,
+				5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
+		56B426F72320112800F31650 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				56000A7623171C11007F6EAE /* ContentView.swift */,
+				568E8AFA231725B400522EC2 /* BrowserDetailView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
