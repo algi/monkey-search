@@ -79,8 +79,8 @@ func transform(html: String, configuration: Configuration) throws -> [EstateReco
     switch configuration.agency {
         case .foxtons:
             parser = FoxtonsParser()
-        default:
-            fatalError("Unsupported parser configuration.")
+        case .dexters:
+            parser = DextersParser()
     }
 
     return try parser.parse(html)
