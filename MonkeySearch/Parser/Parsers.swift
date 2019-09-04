@@ -11,6 +11,7 @@ import Foundation
 struct EstateRecord: Identifiable {
 
     let agency: String
+    let date: Date
     let detailURL: URL
     let id: String
     let name: String

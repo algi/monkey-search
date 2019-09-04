@@ -31,6 +31,7 @@ class DextersParser: AgencyParser {
             }
 
             let record = EstateRecord(agency: "Dexters",
+                                      date: Date(),
                                       detailURL: detailURL,
                                       id: recordID,
                                       name: name,

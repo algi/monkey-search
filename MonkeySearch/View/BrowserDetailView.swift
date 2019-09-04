@@ -54,6 +54,7 @@ struct BrowserDetailView: View {
 #if DEBUG
 private func previewData() -> EstateRecord {
     return EstateRecord(agency: "Foxtons",
+                        date: Date(),
                         detailURL: URL(string: "https://www.foxtons.co.uk/properties-to-rent/nw3/hmpd0183781")!,
                         id: "1",
                         name: "44 Priory Road",

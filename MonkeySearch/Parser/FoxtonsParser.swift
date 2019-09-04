@@ -31,6 +31,7 @@ class FoxtonsParser: NSObject, AgencyParser {
             }
 
             let record = EstateRecord(agency: "Foxtons",
+                                      date: Date(),
                                       detailURL: detailURL,
                                       id: recordID,
                                       name: propertyName,
