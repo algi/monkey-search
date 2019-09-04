@@ -28,16 +28,15 @@ func fetchNewData() -> AnyPublisher<[EstateRecord], Error> {
     /*
      1. načti data z internetu
      2. načtu existující záznamy, které nejsou skryté a transformuj je na ‹EstateRecord›
-     3. najdi nové záznamy (porovnej internetové s existujícími z CoreData)
-     4. ulož nové záznamy do CoreData
-     5. zkombinuj staré a nové záznamy
-     6. setřiď dle data (od nejmladšího)
+     3. ulož nové záznamy do CoreData (porovnej internetové s existujícími z CoreData)
+     4. seřaď staré a nové záznamy dle data (od nejmladšího)
      */
 
     guard let URL = URL(string: "https://www.foxtons.co.uk/properties-to-rent/muswell-hill-n10/?price_to=500&bedrooms_from=2&expand=2") else {
         fatalError("Invalid fetch URL.")
     }
 
+    // TODO: support mutiple configurations ...
     let foxtons = Configuration(agency: .foxtons, url: URL)
 
     return downloadData(from: foxtons.url)
@@ -47,7 +46,6 @@ func fetchNewData() -> AnyPublisher<[EstateRecord], Error> {
 
 /// Downloads data from specified URL. It may fail either because of network error, or during reading downloaded data.
 /// - Parameter URL: Estate agency's fetch URL
-// https://www.foxtons.co.uk/properties-to-rent/muswell-hill-n10/?price_to=500&bedrooms_from=2&expand=2
 func downloadData(from URL: URL) -> Future<String, Error> {
     return Future { (promise) in
         let task = URLSession.shared.downloadTask(with: URL) { (location, response, networkError) in
@@ -72,15 +70,24 @@ func downloadData(from URL: URL) -> Future<String, Error> {
     }
 }
 
-func transform(html: String, forAgency agency: String) throws -> [EstateRecord] {
-    switch agency {
-        case "Foxtons":
-            return try FoxtonsParser().parse(html)
+/// Transforms HTML string into collection of estate records.
+/// - Parameter html: HTML string
+/// - Parameter configuration: agency configuration
+func transform(html: String, configuration: Configuration) throws -> [EstateRecord] {
+    let parser: AgencyParser
+
+    switch configuration.agency {
+        case .foxtons:
+            parser = FoxtonsParser()
         default:
-            fatalError()
+            fatalError("Unsupported parser configuration.")
     }
+
+    return try parser.parse(html)
 }
 
+/// Fetches data from persistent container.
+/// - Parameter context: view context
 func fetchPersistedData(from context: NSManagedObjectContext) throws -> [EstateRecord] {
 
     let request: NSFetchRequest<Estate> = Estate.fetchRequest()
@@ -91,12 +98,66 @@ func fetchPersistedData(from context: NSManagedObjectContext) throws -> [EstateR
     return entities.map { (entity) in EstateRecord(entity: entity) }
 }
 
+/// Persists newly fetched data. Does not override existing data.
+/// - Parameter newData: newly fetched data from network
+/// - Parameter existingData: existing data, feched from CoreData storage
+/// - Parameter viewContext: CoreData's view context
+func persist(newData: [EstateRecord], existingData: [EstateRecord], into viewContext: NSManagedObjectContext) throws {
+    let difference = newData.difference(from: existingData)
+
+    for item in difference {
+        switch item {
+            case .insert(_, let record, _):
+                _ = Estate(record: record, context: viewContext)
+            default:
+                break
+        }
+    }
+}
+
+/// Merges old and new data together. Then it sorts them by date.
+/// - Parameter oldData: existing data (from CoreData storage)
+/// - Parameter newData: new data (from network)
+func merge(oldData: [EstateRecord], with newData: [EstateRecord]) -> [EstateRecord] {
+
+    var result = [EstateRecord]()
+
+    result.append(contentsOf: oldData)
+    result.append(contentsOf: newData)
+
+    return result.sorted { (first, second) in
+        return first.date > second.date
+    }
+}
+
+extension EstateRecord: Equatable {
+    static func == (lhs: EstateRecord, rhs: EstateRecord) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+extension Estate {
+    convenience init(record: EstateRecord, context: NSManagedObjectContext) {
+        self.init(context: context)
+
+        self.agency = record.agency
+        self.detailURL = record.detailURL
+        self.date = record.date
+        self.externalID = record.id
+        self.name = record.name
+        self.price = Int16(record.price) ?? 0
+        self.status = record.status
+        self.text = record.text
+    }
+}
+
 extension EstateRecord {
 
     init(entity: Estate) {
         self.agency = entity.agency ?? "Unknown"
         self.detailURL = entity.detailURL ?? URL(string: "http://www.apple.com")!
-        self.id = entity.externalID ?? ""
+        self.date = entity.date ?? Date()
+        self.id = entity.externalID ?? "-1"
         self.name = entity.name ?? "No address"
         self.price = "\(entity.price)"
         self.status = entity.status ?? "New"
