@@ -21,6 +21,7 @@
 		563B791D23185554009E8E45 /* DextersParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563B791C23185554009E8E45 /* DextersParserTests.swift */; };
 		563B791F23185743009E8E45 /* dexters.html in Resources */ = {isa = PBXBuildFile; fileRef = 563B791E23185743009E8E45 /* dexters.html */; };
 		568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568E8AFA231725B400522EC2 /* BrowserDetailView.swift */; };
+		56B426F3231EB15600F31650 /* DataProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B426F2231EB15600F31650 /* DataProcessor.swift */; };
 		56B7B9EB2317FF8A001A0620 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 56B7B9EA2317FF8A001A0620 /* Kanna */; };
 		56CD1D3A231801C90091285B /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 56CD1D39231801C90091285B /* Kanna */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		563B791C23185554009E8E45 /* DextersParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DextersParserTests.swift; sourceTree = "<group>"; };
 		563B791E23185743009E8E45 /* dexters.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = dexters.html; sourceTree = "<group>"; };
 		568E8AFA231725B400522EC2 /* BrowserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserDetailView.swift; sourceTree = "<group>"; };
+		56B426F2231EB15600F31650 /* DataProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				56000A7123171C11007F6EAE /* SceneDelegate.swift */,
 				56000A7623171C11007F6EAE /* ContentView.swift */,
 				568E8AFA231725B400522EC2 /* BrowserDetailView.swift */,
+				56B426F2231EB15600F31650 /* DataProcessor.swift */,
 				563B791A231854ED009E8E45 /* DextersParser.swift */,
 				5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */,
 				56000A7823171C13007F6EAE /* Assets.xcassets */,
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56B426F3231EB15600F31650 /* DataProcessor.swift in Sources */,
 				56000A7023171C11007F6EAE /* AppDelegate.swift in Sources */,
 				568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */,
 				5631F3D82317EF46008A0B87 /* FoxtonsParser.swift in Sources */,
