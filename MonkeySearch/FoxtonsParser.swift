@@ -9,24 +9,6 @@
 import Foundation
 import Kanna
 
-struct EstateRecord: Identifiable {
-
-    let agency: String
-    let detailURL: URL
-    let id: String
-    let name: String
-    let price: String
-    let status: String
-    let text: String
-
-}
-
-protocol AgencyParser {
-
-    func parse(_ html: String) throws -> [EstateRecord]
-
-}
-
 class FoxtonsParser: NSObject, AgencyParser {
 
     private static let baseURL = "https://www.foxtons.co.uk"
@@ -61,8 +43,4 @@ class FoxtonsParser: NSObject, AgencyParser {
 
         return result
     }
-}
-
-enum ParserError: Error {
-    case missingField
 }
