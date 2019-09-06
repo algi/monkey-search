@@ -51,7 +51,6 @@ struct BrowserDetailView: View {
     }
 }
 
-#if DEBUG
 private func previewData() -> EstateRecord {
     return EstateRecord(agency: "Foxtons",
                         date: Date(),
@@ -70,4 +69,3 @@ struct BrowserDetailView_Previews: PreviewProvider {
         }
     }
 }
-#endif
