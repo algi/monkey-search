@@ -10,3 +10,4 @@
 * IDE: Xcode 11
 ## Dependencies
 * Kanna (http://tid-kijyun.github.io/Kanna/)
+* libXML2 (install with `brew install libxml2`)
