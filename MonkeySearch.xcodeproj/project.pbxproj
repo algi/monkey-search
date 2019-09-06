@@ -51,6 +51,7 @@
 		56000A8523171C13007F6EAE /* MonkeySearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkeySearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		56000A8B23171C13007F6EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		560E43F62320374F00662CC3 /* DataProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProcessorTests.swift; sourceTree = "<group>"; };
+		562DF91A23229D6800144BC6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5631F3CB2317B258008A0B87 /* MonkeySearch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MonkeySearch.entitlements; sourceTree = "<group>"; };
 		5631F3D02317CFD0008A0B87 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
 		5631F3D22317D027008A0B87 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
@@ -88,6 +89,7 @@
 		56000A6323171C11007F6EAE = {
 			isa = PBXGroup;
 			children = (
+				562DF91A23229D6800144BC6 /* README.md */,
 				56000A6E23171C11007F6EAE /* MonkeySearch */,
 				56000A8823171C13007F6EAE /* MonkeySearchTests */,
 				56000A6D23171C11007F6EAE /* Products */,
