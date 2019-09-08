@@ -50,7 +50,7 @@ class DataProviderTests: XCTestCase {
 
         for _ in 1...1000 {
             let estate = Estate(context: context)
-            estate.status = "Deny"
+            estate.status = "Hidden"
         }
 
         var provider: DataProvider? = nil

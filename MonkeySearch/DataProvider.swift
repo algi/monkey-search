@@ -38,7 +38,7 @@ class DataProvider: ObservableObject {
 private func fetchData(from container: NSPersistentContainer) -> [EstateRecord] {
     let request: NSFetchRequest<Estate> = Estate.fetchRequest()
 
-    request.predicate = NSPredicate(format: "status == %@", "New") // TODO: use Enum, if possible
+    request.predicate = NSPredicate(format: "status != %@", "Hidden")
     request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.date, ascending: true)]
 
     do {
