@@ -9,22 +9,23 @@
 import Combine
 import CoreData
 
-enum Agency {
+enum AgencyType {
 
     case dexters
     case foxtons
 
 }
 
-struct Configuration {
+struct AgencyConfiguration {
 
-    let agency: Agency
+    let agency: AgencyType
     let url: URL
 
 }
 
 func fetchNewData() -> AnyPublisher<[EstateRecord], Error> {
 
+    // TODO: finish the implementation
     /*
      1. načti data z internetu
      2. načtu existující záznamy, které nejsou skryté a transformuj je na ‹EstateRecord›
@@ -37,7 +38,7 @@ func fetchNewData() -> AnyPublisher<[EstateRecord], Error> {
     }
 
     // TODO: support mutiple configurations ...
-    let foxtons = Configuration(agency: .foxtons, url: URL)
+    let foxtons = AgencyConfiguration(agency: .foxtons, url: URL)
 
     return downloadData(from: foxtons.url)
         .tryMap { (html) in try FoxtonsParser().parse(html) }
@@ -73,7 +74,7 @@ func downloadData(from URL: URL) -> Future<String, Error> {
 /// Transforms HTML string into collection of estate records.
 /// - Parameter html: HTML string
 /// - Parameter configuration: agency configuration
-func transform(html: String, configuration: Configuration) throws -> [EstateRecord] {
+func transform(html: String, configuration: AgencyConfiguration) throws -> [EstateRecord] {
     let parser: AgencyParser
 
     switch configuration.agency {

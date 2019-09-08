@@ -25,6 +25,9 @@
 		56B426F3231EB15600F31650 /* DataProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B426F2231EB15600F31650 /* DataProcessor.swift */; };
 		56B426F52320108A00F31650 /* Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B426F42320108A00F31650 /* Parsers.swift */; };
 		56B7B9EB2317FF8A001A0620 /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 56B7B9EA2317FF8A001A0620 /* Kanna */; };
+		56C6174C2325254C00460F66 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C6174B2325254C00460F66 /* Configuration.swift */; };
+		56C6174E232528A400460F66 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C6174D232528A400460F66 /* ConfigurationTests.swift */; };
+		56C617522325332D00460F66 /* Configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 56C617512325332D00460F66 /* Configuration.json */; };
 		56CD1D3A231801C90091285B /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 56CD1D39231801C90091285B /* Kanna */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +67,9 @@
 		568E8AFA231725B400522EC2 /* BrowserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserDetailView.swift; sourceTree = "<group>"; };
 		56B426F2231EB15600F31650 /* DataProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProcessor.swift; sourceTree = "<group>"; };
 		56B426F42320108A00F31650 /* Parsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsers.swift; sourceTree = "<group>"; };
+		56C6174B2325254C00460F66 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		56C6174D232528A400460F66 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
+		56C617512325332D00460F66 /* Configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Configuration.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +118,13 @@
 				56000A6F23171C11007F6EAE /* AppDelegate.swift */,
 				56000A7123171C11007F6EAE /* SceneDelegate.swift */,
 				56B426F72320112800F31650 /* View */,
-				56B426F2231EB15600F31650 /* DataProcessor.swift */,
 				56B426F62320111A00F31650 /* Parser */,
+				56C6174B2325254C00460F66 /* Configuration.swift */,
+				56B426F2231EB15600F31650 /* DataProcessor.swift */,
 				56000A7823171C13007F6EAE /* Assets.xcassets */,
 				56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */,
 				56000A8023171C13007F6EAE /* Info.plist */,
+				56C617512325332D00460F66 /* Configuration.json */,
 				56000A7323171C11007F6EAE /* MonkeySearch.xcdatamodeld */,
 				5631F3CB2317B258008A0B87 /* MonkeySearch.entitlements */,
 				56000A7A23171C13007F6EAE /* Preview Content */,
@@ -135,6 +143,7 @@
 		56000A8823171C13007F6EAE /* MonkeySearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				56C6174D232528A400460F66 /* ConfigurationTests.swift */,
 				560E43F62320374F00662CC3 /* DataProcessorTests.swift */,
 				563B791C23185554009E8E45 /* DextersParserTests.swift */,
 				5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */,
@@ -263,6 +272,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56C617522325332D00460F66 /* Configuration.json in Resources */,
 				56000A7F23171C13007F6EAE /* LaunchScreen.storyboard in Resources */,
 				56000A7C23171C13007F6EAE /* Preview Assets.xcassets in Resources */,
 				56000A7923171C13007F6EAE /* Assets.xcassets in Resources */,
@@ -291,6 +301,7 @@
 				568E8AFB231725B400522EC2 /* BrowserDetailView.swift in Sources */,
 				5631F3D82317EF46008A0B87 /* FoxtonsParser.swift in Sources */,
 				563B791B231854ED009E8E45 /* DextersParser.swift in Sources */,
+				56C6174C2325254C00460F66 /* Configuration.swift in Sources */,
 				56000A7523171C11007F6EAE /* MonkeySearch.xcdatamodeld in Sources */,
 				56000A7723171C11007F6EAE /* ContentView.swift in Sources */,
 				56000A7223171C11007F6EAE /* SceneDelegate.swift in Sources */,
@@ -303,6 +314,7 @@
 			files = (
 				563B791D23185554009E8E45 /* DextersParserTests.swift in Sources */,
 				5631F3DA2317F32B008A0B87 /* FoxtonsParserTests.swift in Sources */,
+				56C6174E232528A400460F66 /* ConfigurationTests.swift in Sources */,
 				560E43F72320374F00662CC3 /* DataProcessorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
