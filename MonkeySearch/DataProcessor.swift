@@ -9,20 +9,6 @@
 import Combine
 import CoreData
 
-enum AgencyType {
-
-    case dexters
-    case foxtons
-
-}
-
-struct AgencyConfiguration {
-
-    let agency: AgencyType
-    let url: URL
-
-}
-
 func fetchNewData() -> AnyPublisher<[EstateRecord], Error> {
 
     // TODO: finish the implementation
@@ -33,14 +19,16 @@ func fetchNewData() -> AnyPublisher<[EstateRecord], Error> {
      4. seřaď staré a nové záznamy dle data (od nejmladšího)
      */
 
-    guard let URL = URL(string: "https://www.foxtons.co.uk/properties-to-rent/muswell-hill-n10/?price_to=500&bedrooms_from=2&expand=2") else {
-        fatalError("Invalid fetch URL.")
+    // TODO: support multiple agencies
+    guard let agency = try? Configuration.defaultConfiguration().agencies.first else {
+        fatalError()
     }
 
-    // TODO: support mutiple configurations ...
-    let foxtons = AgencyConfiguration(agency: .foxtons, url: URL)
+    guard let url = agency.filters.first else {
+        fatalError()
+    }
 
-    return downloadData(from: foxtons.url)
+    return downloadData(from: url)
         .tryMap { (html) in try FoxtonsParser().parse(html) }
         .eraseToAnyPublisher()
 }
@@ -69,34 +57,6 @@ func downloadData(from URL: URL) -> Future<String, Error> {
         }
         task.resume()
     }
-}
-
-/// Transforms HTML string into collection of estate records.
-/// - Parameter html: HTML string
-/// - Parameter configuration: agency configuration
-func transform(html: String, configuration: AgencyConfiguration) throws -> [EstateRecord] {
-    let parser: AgencyParser
-
-    switch configuration.agency {
-        case .foxtons:
-            parser = FoxtonsParser()
-        case .dexters:
-            parser = DextersParser()
-    }
-
-    return try parser.parse(html)
-}
-
-/// Fetches data from persistent container.
-/// - Parameter context: view context
-func fetchPersistedData(from context: NSManagedObjectContext) throws -> [EstateRecord] {
-
-    let request: NSFetchRequest<Estate> = Estate.fetchRequest()
-    request.predicate = NSPredicate(format: "state != %@", "Hidden")
-
-    let entities = try context.fetch(request)
-
-    return entities.map { (entity) in EstateRecord(entity: entity) }
 }
 
 /// Persists newly fetched data. Does not override existing data.
