@@ -36,6 +36,7 @@ class DataProvider: ObservableObject {
 
     /// Downloads new data from the internet and merges them with existing data.
     func refreshData() {
+        guard let container = container else { return }
 
         let configuration: Configuration
         do {
@@ -52,7 +53,13 @@ class DataProvider: ObservableObject {
                     result.append(contentsOf: records)
                 }
             }
-            // TODO: process data (store them in CoreData)
+            .tryMap { newData in
+
+                let oldData = try fetchData(from: container)
+                try persistDifferenceBetween(newData: newData, oldData: oldData, into: container)
+
+                return merge(oldData: oldData, with: newData)
+            }
             .sink(receiveCompletion: { (completion) in
                 if case .failure(let error) = completion {
                     // TODO: capture error
@@ -61,7 +68,7 @@ class DataProvider: ObservableObject {
             })
             { (records) in
                 self.data = records
-        }
+            }
     }
 
     /// Downloads and transforms data from specified configuration.
@@ -88,32 +95,32 @@ class DataProvider: ObservableObject {
                     .tryMap { (html) in try parser.parse(html) }
                     .eraseToAnyPublisher()
     }
+}
 
-    /// Persists newly fetched data. Does not override existing data.
-    /// - Parameter newData: newly fetched data from network
-    /// - Parameter existingData: existing data, feched from CoreData storage
-    /// - Parameter viewContext: CoreData's view context
-    private func persist(newData: [EstateRecord], existingData: [EstateRecord], into viewContext: NSManagedObjectContext) throws {
-        for change in newData.difference(from: existingData) {
-            if case .insert(_, let record, _) = change {
-                _ = Estate(record: record, context: viewContext)
-            }
+/// Persists newly fetched data. Does not override existing data.
+/// - Parameter newData: newly fetched data from network
+/// - Parameter oldData: existing data, feched from CoreData storage
+/// - Parameter viewContext: CoreData's view context
+private func persistDifferenceBetween(newData: [EstateRecord], oldData: [EstateRecord], into container: NSPersistentContainer) throws {
+    for change in newData.difference(from: oldData) {
+        if case .insert(_, let record, _) = change {
+            _ = Estate(record: record, context: container.viewContext)
         }
     }
+}
 
-    /// Merges old and new data together. Then it sorts them by date.
-    /// - Parameter oldData: existing data (from CoreData storage)
-    /// - Parameter newData: new data (from network)
-    private func merge(oldData: [EstateRecord], with newData: [EstateRecord]) -> [EstateRecord] {
+/// Merges old and new data together. Then it sorts them by date.
+/// - Parameter oldData: existing data (from CoreData storage)
+/// - Parameter newData: new data (from network)
+private func merge(oldData: [EstateRecord], with newData: [EstateRecord]) -> [EstateRecord] {
 
-        var result = [EstateRecord]()
+    var result = [EstateRecord]()
 
-        result.append(contentsOf: oldData)
-        result.append(contentsOf: newData)
+    result.append(contentsOf: oldData)
+    result.append(contentsOf: newData)
 
-        return result.sorted { (first, second) in
-            return first.date > second.date
-        }
+    return result.sorted { (first, second) in
+        return first.date > second.date
     }
 }
 
