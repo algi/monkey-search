@@ -29,17 +29,17 @@ struct BrowserDetailView: View {
             Text(entity.text)
 
             Text("Photos:").fontWeight(.bold)
-            Text("No photos available.") // TODO: fotky
+            Text("No photos available.") // TODO: implement photos
 
             Spacer()
 
             HStack {
                 Button("Accept") {
-                    // ...
+                    // TODO: implement Accept button
                 }
                 Spacer()
                 Button("Deny") {
-                    // ...
+                    // TODO: implement Deny button
                 }.foregroundColor(.red)
             }
         }
