@@ -6,6 +6,7 @@
 //  Copyright © 2019 Marian Bouček. All rights reserved.
 //
 
+import Combine
 import CoreData
 
 class DataProvider: ObservableObject {
@@ -13,6 +14,7 @@ class DataProvider: ObservableObject {
     @Published var data: [EstateRecord]
 
     private let container: NSPersistentContainer?
+    private var cancelable: AnyCancellable?
 
     init(data: [EstateRecord]) {
         self.data = data
@@ -26,12 +28,70 @@ class DataProvider: ObservableObject {
 
     func refreshData() {
 
-        guard let container = container else {
-            return
+        let configuration: Configuration
+        do {
+            configuration = try Configuration.defaultConfiguration()
+        }
+        catch {
+            fatalError("Unable to read configuration: \(error.localizedDescription)")
         }
 
-        // TODO: load new data from the internet and merge them with existing data
-        self.data = fetchData(from: container)
+        var publisher = Empty<[EstateRecord], Error>().eraseToAnyPublisher()
+
+        for agency in configuration.agencies {
+            let parser = agency.createParser()
+
+            for URL in agency.filters {
+
+                let parsedRecords = downloadData(from: URL).tryMap { (html) in
+                    try parser.parse(html)
+                }
+
+                publisher = publisher.append(parsedRecords).eraseToAnyPublisher()
+            }
+        }
+
+        cancelable = publisher.collect().reduce([EstateRecord]()) { (initialResult, records) in
+            return records.reduce(into: initialResult) { (result, records) in
+                result.append(contentsOf: records)
+            }
+        }
+        // TODO: process data (store them in CoreData)
+        .sink(receiveCompletion: { (completion) in
+            if case .failure(let error) = completion {
+                // TODO: capture error
+                print("Unable to download new data, reason: \(error.localizedDescription)")
+            }
+        })
+        { (records) in
+            self.data = records
+        }
+    }
+
+    /// Downloads data from specified URL. It may fail either because of network error, or during reading downloaded data.
+    /// - Parameter URL: Estate agency's fetch URL
+    private func downloadData(from URL: URL) -> Future<String, Error> {
+        return Future { (promise) in
+            let task = URLSession.shared.downloadTask(with: URL) { (location, response, networkError) in
+                if let networkError = networkError {
+                    promise(.failure(networkError))
+                    return
+                }
+
+                guard let location = location else {
+                    fatalError("Unable to find location of stored data, no error has been provided.")
+                }
+
+                do {
+                    let result = try String(contentsOf: location)
+                    promise(.success(result))
+                }
+                catch {
+                    promise(.failure(error))
+                }
+            }
+            task.resume()
+        }
     }
 }
 
@@ -46,6 +106,7 @@ private func fetchData(from container: NSPersistentContainer) -> [EstateRecord] 
         return result.map { (entity) in EstateRecord(entity: entity) }
     }
     catch (let error as NSError) {
+        // TODO: improve error handling by capturing the error in state
         print("Unable to fetch data from CoreData. Description: \(error.description), userInfo: \(error.userInfo)")
         return [EstateRecord]()
     }
