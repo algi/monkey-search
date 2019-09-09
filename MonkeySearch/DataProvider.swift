@@ -44,6 +44,28 @@ class DataProvider: ObservableObject {
             fatalError("Unable to read configuration: \(error.localizedDescription)")
         }
 
+        cancelable = downloadAndTransformData(using: configuration)
+            .collect()
+            .reduce([EstateRecord]()) { (initialResult, records) in
+                return records.reduce(into: initialResult) { (result, records) in
+                    result.append(contentsOf: records)
+                }
+            }
+            // TODO: process data (store them in CoreData)
+            .sink(receiveCompletion: { (completion) in
+                if case .failure(let error) = completion {
+                    // TODO: capture error
+                    print("Unable to download new data, reason: \(error.localizedDescription)")
+                }
+            })
+            { (records) in
+                self.data = records
+        }
+    }
+
+    /// Downloads and transforms data from specified configuration.
+    /// - Parameter configuration: application configuration
+    private func downloadAndTransformData(using configuration: Configuration) -> AnyPublisher<[EstateRecord], Error> {
         var publisher = Empty<[EstateRecord], Error>().eraseToAnyPublisher()
 
         for agency in configuration.agencies {
@@ -59,21 +81,7 @@ class DataProvider: ObservableObject {
             }
         }
 
-        cancelable = publisher.collect().reduce([EstateRecord]()) { (initialResult, records) in
-            return records.reduce(into: initialResult) { (result, records) in
-                result.append(contentsOf: records)
-            }
-        }
-        // TODO: process data (store them in CoreData)
-        .sink(receiveCompletion: { (completion) in
-            if case .failure(let error) = completion {
-                // TODO: capture error
-                print("Unable to download new data, reason: \(error.localizedDescription)")
-            }
-        })
-        { (records) in
-            self.data = records
-        }
+        return publisher
     }
 
     /// Downloads data from specified URL. It may fail either because of network error, or during reading downloaded data.
