@@ -23,7 +23,15 @@ class DataProvider: ObservableObject {
 
     init(container: NSPersistentContainer) {
         self.container = container
-        self.data = fetchData(from: container)
+
+        do {
+            self.data = try fetchData(from: container)
+        }
+        catch {
+            // TODO: capture error
+            print("Unable to fetch records, error: \(error.localizedDescription)")
+            self.data = [EstateRecord]()
+        }
     }
 
     func refreshData() {
@@ -95,19 +103,12 @@ class DataProvider: ObservableObject {
     }
 }
 
-private func fetchData(from container: NSPersistentContainer) -> [EstateRecord] {
+private func fetchData(from container: NSPersistentContainer) throws -> [EstateRecord] {
     let request: NSFetchRequest<Estate> = Estate.fetchRequest()
 
     request.predicate = NSPredicate(format: "status != %@", "Hidden")
     request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.date, ascending: true)]
 
-    do {
-        let result = try container.viewContext.fetch(request)
-        return result.map { (entity) in EstateRecord(entity: entity) }
-    }
-    catch (let error as NSError) {
-        // TODO: improve error handling by capturing the error in state
-        print("Unable to fetch data from CoreData. Description: \(error.description), userInfo: \(error.userInfo)")
-        return [EstateRecord]()
-    }
+    let result = try container.viewContext.fetch(request)
+    return result.map { (entity) in EstateRecord(entity: entity) }
 }
