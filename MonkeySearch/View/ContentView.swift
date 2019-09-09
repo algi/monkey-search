@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
 
-    let provider: DataProvider
+    @ObservedObject var provider: DataProvider
 
     var body: some View {
         NavigationView {
