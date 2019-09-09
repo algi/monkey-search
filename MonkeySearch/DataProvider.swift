@@ -34,6 +34,7 @@ class DataProvider: ObservableObject {
         }
     }
 
+    /// Downloads new data from the internet and merges them with existing data.
     func refreshData() {
 
         let configuration: Configuration
@@ -107,6 +108,33 @@ class DataProvider: ObservableObject {
                 }
             }
             task.resume()
+        }
+    }
+
+    /// Persists newly fetched data. Does not override existing data.
+    /// - Parameter newData: newly fetched data from network
+    /// - Parameter existingData: existing data, feched from CoreData storage
+    /// - Parameter viewContext: CoreData's view context
+    private func persist(newData: [EstateRecord], existingData: [EstateRecord], into viewContext: NSManagedObjectContext) throws {
+        for change in newData.difference(from: existingData) {
+            if case .insert(_, let record, _) = change {
+                _ = Estate(record: record, context: viewContext)
+            }
+        }
+    }
+
+    /// Merges old and new data together. Then it sorts them by date.
+    /// - Parameter oldData: existing data (from CoreData storage)
+    /// - Parameter newData: new data (from network)
+    private func merge(oldData: [EstateRecord], with newData: [EstateRecord]) -> [EstateRecord] {
+
+        var result = [EstateRecord]()
+
+        result.append(contentsOf: oldData)
+        result.append(contentsOf: newData)
+
+        return result.sorted { (first, second) in
+            return first.date > second.date
         }
     }
 }
