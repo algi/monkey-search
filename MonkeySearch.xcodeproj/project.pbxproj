@@ -30,6 +30,7 @@
 		56C617522325332D00460F66 /* Configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 56C617512325332D00460F66 /* Configuration.json */; };
 		56C6175423258C2900460F66 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C6175323258C2900460F66 /* DataProvider.swift */; };
 		56C61756232599DA00460F66 /* DataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C61755232599DA00460F66 /* DataProviderTests.swift */; };
+		56C6175823262FC400460F66 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C6175723262FC400460F66 /* PreviewData.swift */; };
 		56CD1D3A231801C90091285B /* Kanna in Frameworks */ = {isa = PBXBuildFile; productRef = 56CD1D39231801C90091285B /* Kanna */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		56C617512325332D00460F66 /* Configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Configuration.json; sourceTree = "<group>"; };
 		56C6175323258C2900460F66 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		56C61755232599DA00460F66 /* DataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderTests.swift; sourceTree = "<group>"; };
+		56C6175723262FC400460F66 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 		56B426F72320112800F31650 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				56C6175723262FC400460F66 /* PreviewData.swift */,
 				56000A7623171C11007F6EAE /* ContentView.swift */,
 				568E8AFA231725B400522EC2 /* BrowserDetailView.swift */,
 			);
@@ -309,6 +312,7 @@
 				56C6175423258C2900460F66 /* DataProvider.swift in Sources */,
 				563B791B231854ED009E8E45 /* DextersParser.swift in Sources */,
 				56C6174C2325254C00460F66 /* Configuration.swift in Sources */,
+				56C6175823262FC400460F66 /* PreviewData.swift in Sources */,
 				56000A7523171C11007F6EAE /* MonkeySearch.xcdatamodeld in Sources */,
 				56000A7723171C11007F6EAE /* ContentView.swift in Sources */,
 				56000A7223171C11007F6EAE /* SceneDelegate.swift in Sources */,

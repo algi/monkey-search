@@ -38,14 +38,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(provider: DataProvider(data: [
-            EstateRecord(agency: "Foxtons",
-                         date: Date(),
-                         detailURL: URL(string: "https://www.foxtons.co.uk")!,
-                         id: "1",
-                         name: "44 Priory Road",
-                         price: "£400",
-                         status: "New",
-                         text: "Sample text.")
+            previewData()
         ]))
     }
 }
