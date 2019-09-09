@@ -73,12 +73,7 @@ class DataProvider: ObservableObject {
             let parser = agency.createParser()
 
             for URL in agency.filters {
-
-                let parsedRecords = downloadData(from: URL).tryMap { (html) in
-                    try parser.parse(html)
-                }
-
-                publisher = publisher.append(parsedRecords).eraseToAnyPublisher()
+                publisher = publisher.append(downloadData(from: URL, parser: parser)).eraseToAnyPublisher()
             }
         }
 
@@ -87,28 +82,11 @@ class DataProvider: ObservableObject {
 
     /// Downloads data from specified URL. It may fail either because of network error, or during reading downloaded data.
     /// - Parameter URL: Estate agency's fetch URL
-    private func downloadData(from URL: URL) -> Future<String, Error> {
-        return Future { (promise) in
-            let task = URLSession.shared.downloadTask(with: URL) { (location, response, networkError) in
-                if let networkError = networkError {
-                    promise(.failure(networkError))
-                    return
-                }
-
-                guard let location = location else {
-                    fatalError("Unable to find location of stored data, no error has been provided.")
-                }
-
-                do {
-                    let result = try String(contentsOf: location)
-                    promise(.success(result))
-                }
-                catch {
-                    promise(.failure(error))
-                }
-            }
-            task.resume()
-        }
+    private func downloadData(from URL: URL, parser: AgencyParser) -> AnyPublisher<[EstateRecord], Error> {
+        return URLSession.shared.dataTaskPublisher(for: URL)
+                    .compactMap { data, response in String(data: data, encoding: .utf8) }
+                    .tryMap { (html) in try parser.parse(html) }
+                    .eraseToAnyPublisher()
     }
 
     /// Persists newly fetched data. Does not override existing data.
