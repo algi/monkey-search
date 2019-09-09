@@ -10,12 +10,12 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var data = [EstateRecord]()
+    let provider: DataProvider
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                List(data) { row in
+                List(provider.data) { row in
                     NavigationLink(destination: BrowserDetailView(entity: row)) {
                         HStack {
                             Text(row.name)
@@ -28,7 +28,7 @@ struct ContentView: View {
             }
             .navigationBarTitle("Browser")
             .navigationBarItems(trailing: Button("Reload") {
-                // TODO: fetch new data
+                self.provider.refreshData()
             })
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
         }
@@ -37,7 +37,15 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environment(\.managedObjectContext, AppDelegate.shared.persistentContainer.viewContext)
+        ContentView(provider: DataProvider(data: [
+            EstateRecord(agency: "Foxtons",
+                         date: Date(),
+                         detailURL: URL(string: "https://www.foxtons.co.uk")!,
+                         id: "1",
+                         name: "44 Priory Road",
+                         price: "£400",
+                         status: "New",
+                         text: "Sample text.")
+        ]))
     }
 }

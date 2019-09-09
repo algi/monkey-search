@@ -23,8 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             fatalError("Unable to find correct application delegate.")
         }
 
-        let contentView = ContentView()
-            .environment(\.managedObjectContext, delegate.persistentContainer.viewContext)
+        let provider = DataProvider(container: delegate.persistentContainer)
+        let contentView = ContentView(provider: provider)
 
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = UIHostingController(rootView: contentView)
