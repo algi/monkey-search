@@ -60,4 +60,40 @@ class DataProviderTests: XCTestCase {
 
         XCTAssertEqual(provider?.data.count, 1000)
     }
+
+    func testPersistDownloadedData() throws {
+        guard let container = container else { fatalError("Managed context is nil.") }
+
+        let newData = [
+            record(id: "1"),
+            record(id: "2"),
+            record(id: "3")
+        ]
+
+        let existingData = [
+            record(id: "1")
+        ]
+
+        try persistDifferenceBetween(newData: newData, oldData: existingData, into: container)
+
+        let request: NSFetchRequest<Estate> = Estate.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.externalID, ascending: true)]
+
+        let result = try container.viewContext.fetch(request)
+
+        XCTAssertEqual(result.count, 2)
+        XCTAssertEqual(result.first?.externalID, "2")
+        XCTAssertEqual(result.last?.externalID, "3")
+    }
+
+    private func record(id: String) -> EstateRecord {
+        return EstateRecord(agency: "Foxtons",
+                            date: Date(),
+                            detailURL: URL(string: "https://www.apple.com")!,
+                            id: id,
+                            name: "Property",
+                            price: "0",
+                            status: "New",
+                            text: "")
+    }
 }

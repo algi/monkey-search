@@ -101,7 +101,7 @@ class DataProvider: ObservableObject {
 /// - Parameter newData: newly fetched data from network
 /// - Parameter oldData: existing data, feched from CoreData storage
 /// - Parameter viewContext: CoreData's view context
-private func persistDifferenceBetween(newData: [EstateRecord], oldData: [EstateRecord], into container: NSPersistentContainer) throws {
+func persistDifferenceBetween(newData: [EstateRecord], oldData: [EstateRecord], into container: NSPersistentContainer) throws {
     for change in newData.difference(from: oldData) {
         if case .insert(_, let record, _) = change {
             _ = Estate(record: record, context: container.viewContext)
