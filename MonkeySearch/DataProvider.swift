@@ -13,7 +13,7 @@ class DataProvider: ObservableObject {
 
     @Published var data: [EstateRecord]
 
-    private let container: NSPersistentContainer?
+    private let container: DataContainer?
     private var cancelable: AnyCancellable?
 
     init(data: [EstateRecord]) {
@@ -21,11 +21,11 @@ class DataProvider: ObservableObject {
         self.container = nil
     }
 
-    init(container: NSPersistentContainer) {
+    init(container: DataContainer) {
         self.container = container
 
         do {
-            self.data = try fetchData(from: container)
+            self.data = try container.fetchData()
         }
         catch {
             // TODO: capture error
@@ -53,13 +53,7 @@ class DataProvider: ObservableObject {
                     result.append(contentsOf: records)
                 }
             }
-            .tryMap { newData in
-
-                let oldData = try fetchData(from: container)
-                try persistDifferenceBetween(newData: newData, oldData: oldData, into: container)
-
-                return merge(oldData: oldData, with: newData)
-            }
+            .tryMap { newData in try container.merge(newData: newData) }
             .sink(receiveCompletion: { (completion) in
                 if case .failure(let error) = completion {
                     // TODO: capture error
@@ -95,41 +89,4 @@ class DataProvider: ObservableObject {
                     .tryMap { (html) in try parser.parse(html) }
                     .eraseToAnyPublisher()
     }
-}
-
-/// Persists newly fetched data. Does not override existing data.
-/// - Parameter newData: newly fetched data from network
-/// - Parameter oldData: existing data, feched from CoreData storage
-/// - Parameter viewContext: CoreData's view context
-func persistDifferenceBetween(newData: [EstateRecord], oldData: [EstateRecord], into container: NSPersistentContainer) throws {
-    for change in newData.difference(from: oldData) {
-        if case .insert(_, let record, _) = change {
-            _ = Estate(record: record, context: container.viewContext)
-        }
-    }
-}
-
-/// Merges old and new data together. Then it sorts them by date.
-/// - Parameter oldData: existing data (from CoreData storage)
-/// - Parameter newData: new data (from network)
-private func merge(oldData: [EstateRecord], with newData: [EstateRecord]) -> [EstateRecord] {
-
-    var result = [EstateRecord]()
-
-    result.append(contentsOf: oldData)
-    result.append(contentsOf: newData)
-
-    return result.sorted { (first, second) in
-        return first.date > second.date
-    }
-}
-
-private func fetchData(from container: NSPersistentContainer) throws -> [EstateRecord] {
-    let request: NSFetchRequest<Estate> = Estate.fetchRequest()
-
-    request.predicate = NSPredicate(format: "status != %@", "Hidden")
-    request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.date, ascending: true)]
-
-    let result = try container.viewContext.fetch(request)
-    return result.map { (entity) in EstateRecord(entity: entity) }
 }
