@@ -35,21 +35,20 @@ class DataProvider: ObservableObject {
     }
 
     /// Downloads new data from the internet and merges them with existing data.
-    func refreshData() {
-        guard let container = container else { return }
+    func refreshData(using configuration: Configuration? = nil) {
 
-        let configuration: Configuration
-        do {
-            configuration = try Configuration.defaultConfiguration()
-        }
-        catch {
-            fatalError("Unable to read configuration: \(error.localizedDescription)")
+        // ignore the call, if container is not specified (called from Preview)
+        guard let container = container else {
+            return
         }
 
-        cancelable = downloadAndTransformData(using: configuration)
+        let config = readConfiguration(configuration: configuration)
+
+        cancelable = downloadAndTransformData(using: config)
             .collect()
             .reduce([EstateRecord](), self.reduceRecords)
             .tryMap { newData in try container.merge(newData: newData) }
+            .breakpoint()
             .sink(receiveCompletion: { (completion) in
                 if case .failure(let error) = completion {
                     // TODO: capture error
@@ -59,6 +58,21 @@ class DataProvider: ObservableObject {
             { (records) in
                 self.data = records
             }
+    }
+
+    /// Provides configuration either from the parameter, or default one.
+    /// - Parameter configuration: external configuration
+    private func readConfiguration(configuration: Configuration?) -> Configuration {
+        if let configuration = configuration {
+            return configuration
+        }
+
+        do {
+            return try Configuration.defaultConfiguration()
+        }
+        catch {
+            fatalError("Unable to create default configuration. Error: \(error.localizedDescription)")
+        }
     }
 
     /// Downloads and transforms data from specified configuration.

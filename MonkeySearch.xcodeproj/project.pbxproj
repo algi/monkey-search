@@ -16,6 +16,8 @@
 		56000A7F23171C13007F6EAE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56000A7D23171C13007F6EAE /* LaunchScreen.storyboard */; };
 		56087BE523269F7100311D66 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56087BE423269F7100311D66 /* DataContainer.swift */; };
 		56087BE72326A2FC00311D66 /* DataContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56087BE62326A2FC00311D66 /* DataContainerTests.swift */; };
+		56087BE92327C62800311D66 /* DataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56087BE82327C62800311D66 /* DataProviderTests.swift */; };
+		56087BEB2327CBDC00311D66 /* InMemoryPersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56087BEA2327CBDC00311D66 /* InMemoryPersistentContainer.swift */; };
 		5631F3D82317EF46008A0B87 /* FoxtonsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5631F3D72317EF46008A0B87 /* FoxtonsParser.swift */; };
 		5631F3DA2317F32B008A0B87 /* FoxtonsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */; };
 		5631F3DC2317F980008A0B87 /* foxtons.html in Resources */ = {isa = PBXBuildFile; fileRef = 5631F3DB2317F980008A0B87 /* foxtons.html */; };
@@ -58,6 +60,8 @@
 		56000A8B23171C13007F6EAE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		56087BE423269F7100311D66 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 		56087BE62326A2FC00311D66 /* DataContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainerTests.swift; sourceTree = "<group>"; };
+		56087BE82327C62800311D66 /* DataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProviderTests.swift; sourceTree = "<group>"; };
+		56087BEA2327CBDC00311D66 /* InMemoryPersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryPersistentContainer.swift; sourceTree = "<group>"; };
 		562DF91A23229D6800144BC6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5631F3CB2317B258008A0B87 /* MonkeySearch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MonkeySearch.entitlements; sourceTree = "<group>"; };
 		5631F3D02317CFD0008A0B87 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
@@ -152,9 +156,11 @@
 			isa = PBXGroup;
 			children = (
 				56C6174D232528A400460F66 /* ConfigurationTests.swift */,
+				56087BE82327C62800311D66 /* DataProviderTests.swift */,
 				56087BE62326A2FC00311D66 /* DataContainerTests.swift */,
 				563B791C23185554009E8E45 /* DextersParserTests.swift */,
 				5631F3D92317F32B008A0B87 /* FoxtonsParserTests.swift */,
+				56087BEA2327CBDC00311D66 /* InMemoryPersistentContainer.swift */,
 				563B791E23185743009E8E45 /* dexters.html */,
 				5631F3DB2317F980008A0B87 /* foxtons.html */,
 				56000A8B23171C13007F6EAE /* Info.plist */,
@@ -324,9 +330,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56087BEB2327CBDC00311D66 /* InMemoryPersistentContainer.swift in Sources */,
 				563B791D23185554009E8E45 /* DextersParserTests.swift in Sources */,
 				5631F3DA2317F32B008A0B87 /* FoxtonsParserTests.swift in Sources */,
 				56C6174E232528A400460F66 /* ConfigurationTests.swift in Sources */,
+				56087BE92327C62800311D66 /* DataProviderTests.swift in Sources */,
 				56087BE72326A2FC00311D66 /* DataContainerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
