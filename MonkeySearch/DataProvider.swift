@@ -48,11 +48,7 @@ class DataProvider: ObservableObject {
 
         cancelable = downloadAndTransformData(using: configuration)
             .collect()
-            .reduce([EstateRecord]()) { (initialResult, records) in
-                return records.reduce(into: initialResult) { (result, records) in
-                    result.append(contentsOf: records)
-                }
-            }
+            .reduce([EstateRecord](), self.reduceRecords)
             .tryMap { newData in try container.merge(newData: newData) }
             .sink(receiveCompletion: { (completion) in
                 if case .failure(let error) = completion {
@@ -88,5 +84,14 @@ class DataProvider: ObservableObject {
                     .compactMap { data, response in String(data: data, encoding: .utf8) }
                     .tryMap { (html) in try parser.parse(html) }
                     .eraseToAnyPublisher()
+    }
+
+    /// Reduces records to one array
+    /// - Parameter initialResult: initial empty array
+    /// - Parameter records: array of arrays with records
+    private func reduceRecords(initialResult: [EstateRecord], records: [[EstateRecord]]) -> [EstateRecord] {
+        return records.reduce(into: initialResult) { (result, records) in
+            result.append(contentsOf: records)
+        }
     }
 }
