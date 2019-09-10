@@ -48,6 +48,7 @@ class DataProvider: ObservableObject {
             .collect()
             .reduce([EstateRecord](), self.reduceRecords)
             .tryMap { newData in try container.merge(newData: newData) }
+            .receive(on: RunLoop.main)
             .sink(receiveCompletion: { (completion) in
                 if case .failure(let error) = completion {
                     // TODO: capture error
