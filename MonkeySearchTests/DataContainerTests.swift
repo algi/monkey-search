@@ -6,7 +6,6 @@
 //  Copyright © 2019 Marian Bouček. All rights reserved.
 //
 
-import Foundation
 import CoreData
 import XCTest
 
@@ -14,54 +13,30 @@ import XCTest
 
 class DataContainerTests: XCTestCase {
 
-    var container: NSPersistentContainer!
+    func testFetchData() throws {
 
-    override func setUp() {
-        guard container == nil else {
+        let container = InMemoryPersistentContainer()
+        insertFakeData(into: container)
+
+        let result: [EstateRecord]
+        do {
+            result = try DataContainer(container: container).fetchData()
+        }
+        catch {
+            XCTFail(error.localizedDescription)
             return
         }
 
-        let container = NSPersistentContainer(name: "MonkeySearch")
-        container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
-
-        container.loadPersistentStores { (_, error) in
-            if let error = error {
-                fatalError("Unexpected error: \(error.localizedDescription)")
-            }
-        }
-
-        self.container = container
-    }
-
-    override func tearDown() {
-        guard let container = container else { fatalError("Unable to find persistent container.") }
-
-        container.viewContext.reset()
-    }
-
-    func testFetchData() throws {
-        insertFakeData()
-
-        var fetchedData: [EstateRecord]? = nil
-        let subject = DataContainer(container: container)
-
-        self.measure {
-            do {
-                fetchedData = try subject.fetchData()
-            }
-            catch {
-                XCTFail(error.localizedDescription)
-            }
-        }
-
-        let result = try XCTUnwrap(fetchedData)
         XCTAssertEqual(result.count, 1000)
     }
 
-    func testPersistDifferenceBetween() throws {
+    func testMergeWithHiddenData() throws {
+
+        let container = InMemoryPersistentContainer()
 
         let existingEstate = Estate(context: container.viewContext)
         existingEstate.externalID = "1"
+        existingEstate.status = "Hidden"
         existingEstate.date = Date()
 
         let newData = [
@@ -70,23 +45,25 @@ class DataContainerTests: XCTestCase {
             record(id: "3")
         ]
 
-        let subject = DataContainer(container: container)
-        var result: [EstateRecord]!
-
-        self.measure {
-            container.viewContext.reset()
-
-            do {
-                result = try subject.merge(newData: newData)
-            }
-            catch {
-                XCTFail(error.localizedDescription)
-            }
+        // merge new and old data
+        let result: [EstateRecord]
+        do {
+            result = try DataContainer(container: container).merge(newData: newData)
+        }
+        catch {
+            XCTFail(error.localizedDescription)
+            return
         }
 
-        XCTAssertEqual(result.count, 3)
-        XCTAssertEqual(result.first?.id, "3")
-        XCTAssertEqual(result.last?.id, "1")
+        XCTAssertEqual(result.count, 2)
+        XCTAssertEqual(result.first?.id, "2")
+        XCTAssertEqual(result.last?.id, "3")
+
+        // verify saved data
+        let request: NSFetchRequest<Estate> = Estate.fetchRequest()
+        let savedData = try container.viewContext.fetch(request)
+
+        XCTAssertEqual(savedData.count, 3)
     }
 
     private func record(id: String) -> EstateRecord {
@@ -100,7 +77,7 @@ class DataContainerTests: XCTestCase {
                             text: "")
     }
 
-    private func insertFakeData() {
+    private func insertFakeData(into container: NSPersistentContainer) {
         let context = container.viewContext
 
         for _ in 1...1000 {

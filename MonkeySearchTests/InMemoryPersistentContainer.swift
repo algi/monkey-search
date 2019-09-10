@@ -8,11 +8,14 @@
 
 import CoreData
 
+@testable import MonkeySearch
+
 /// In-memory persistent container for CoreData.
 class InMemoryPersistentContainer: NSPersistentContainer {
 
     convenience init() {
-        self.init(name: "MonkeySearch")
+        self.init(name: "MonkeySearch",
+                  managedObjectModel: AppDelegate.shared.persistentContainer.managedObjectModel)
 
         persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
 

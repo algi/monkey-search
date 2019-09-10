@@ -17,10 +17,13 @@ class DataContainer: NSObject {
     }
 
     /// Fetches existing data from CoreData storage.
-    func fetchData() throws -> [EstateRecord] {
+    func fetchData(filterHidden: Bool = true) throws -> [EstateRecord] {
         let request: NSFetchRequest<Estate> = Estate.fetchRequest()
 
-        request.predicate = NSPredicate(format: "status != %@", "Hidden")
+        if filterHidden {
+            request.predicate = NSPredicate(format: "status != %@", "Hidden")
+        }
+
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.date, ascending: true)]
 
         let result = try container.viewContext.fetch(request)
@@ -31,7 +34,7 @@ class DataContainer: NSObject {
     /// - Parameter newData: newly fetched data from network
     func merge(newData: [EstateRecord]) throws -> [EstateRecord] {
 
-        let oldData = try fetchData()
+        let oldData = try fetchData(filterHidden: false)
 
         for change in newData.difference(from: oldData) {
             if case .insert(_, let record, _) = change {
@@ -47,14 +50,20 @@ class DataContainer: NSObject {
     /// - Parameter newData: new data (from network)
     private func merge(oldData: [EstateRecord], with newData: [EstateRecord]) -> [EstateRecord] {
 
-        var result = [EstateRecord]()
+        var result = [EstateRecord](oldData)
 
-        result.append(contentsOf: oldData)
-        result.append(contentsOf: newData)
+        for record in newData {
+            if result.contains(record) {
+                continue
+            }
 
-        return result.sorted { (first, second) in
-            return first.date > second.date
+            result.append(record)
+        }
+
+        return result.filter { (record) -> Bool in
+            return record.status != "Hidden"
+        }.sorted { (first, second) in
+            return first.date < second.date
         }
     }
-
 }
