@@ -50,13 +50,13 @@ struct BrowserDetailView: View {
         })
     }
 
-    private func previewImage() -> Image {
-        // TODO: do not load me on main thread + cache the image
+    private func previewImage() -> AnyView {
+        // TODO: do not load on main thread + cache the image
         if let data = try? Data(contentsOf: entity.previewImageURL), let image = UIImage(data: data) {
-            return Image(uiImage: image)
+            return AnyView(Image(uiImage: image))
         }
         else {
-            return Image(systemName: "book")
+            return AnyView(Text("No preview image available."))
         }
     }
 }
