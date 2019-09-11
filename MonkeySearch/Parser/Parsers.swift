@@ -15,7 +15,7 @@ struct EstateRecord: Identifiable {
     let detailURL: URL
     let id: String
     let name: String
-    let price: String
+    let price: Double
     let status: String
     let text: String
     let previewImageURL: URL

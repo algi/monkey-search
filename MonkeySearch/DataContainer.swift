@@ -42,6 +42,8 @@ class DataContainer: NSObject {
             }
         }
 
+        try container.viewContext.save()
+
         return merge(oldData: oldData, with: newData)
     }
 

@@ -24,7 +24,7 @@ class FoxtonsParser: NSObject, AgencyParser {
                 let propertyName = element.at_xpath("./div/h6")?.text,
                 let detailLink = element.at_xpath("./div/h6/a/@href")?.text,
                 let detailURL = URL(string: "\(FoxtonsParser.baseURL)\(detailLink)"),
-                let price = element.at_xpath("./div/h2/strong/data")?.text,
+                let price = Double(element.at_xpath("./div/h2/strong/data")?.text ?? ""), // TODO: Double
                 let description = element.at_xpath("./div/p[@class='description']")?.text,
                 let previewImageURL = URL(string: findPreviewImageURL(in: element) ?? "")
             else {
@@ -36,7 +36,7 @@ class FoxtonsParser: NSObject, AgencyParser {
                                       detailURL: detailURL,
                                       id: recordID,
                                       name: propertyName,
-                                      price: "£\(price)",
+                                      price: price,
                                       status: "New",
                                       text: description.trimmingCharacters(in: CharacterSet.newlines),
                                       previewImageURL: previewImageURL)

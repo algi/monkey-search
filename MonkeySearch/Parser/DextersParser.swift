@@ -24,7 +24,7 @@ class DextersParser: AgencyParser {
                 let detailURL = URL(string: "\(DextersParser.baseURL)\(detailLink)"),
                 let recordID = item.at_xpath("./@data-property-id")?.text,
                 let name = item.at_xpath("./div/h3")?.text,
-                let price = item.at_xpath("./div/span/span/@data-price")?.text,
+                let price = Double(item.at_xpath("./div/span/span/@data-price")?.text ?? ""),
                 let text = item.at_xpath("./div/div")?.text,
                 let previewImageURL = URL(string: item.at_xpath("./div/a/img/@src")?.text ?? "")
             else {
@@ -36,7 +36,7 @@ class DextersParser: AgencyParser {
                                       detailURL: detailURL,
                                       id: recordID,
                                       name: name,
-                                      price: "£\(price) pcm",
+                                      price: price,
                                       status: "New",
                                       text: text,
                                       previewImageURL: previewImageURL)

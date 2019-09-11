@@ -61,9 +61,21 @@ class DataContainerTests: XCTestCase {
 
         // verify saved data
         let request: NSFetchRequest<Estate> = Estate.fetchRequest()
-        let savedData = try container.viewContext.fetch(request)
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Estate.date, ascending: true)]
 
+        let savedData = try container.viewContext.fetch(request)
         XCTAssertEqual(savedData.count, 3)
+
+        let last = try XCTUnwrap(savedData.last)
+
+        XCTAssertEqual(last.agency, "Foxtons")
+        XCTAssertEqual(last.detailURL, URL(string: "https://www.apple.com"))
+        XCTAssertEqual(last.externalID, "3")
+        XCTAssertEqual(last.name, "Property")
+        XCTAssertEqual(last.price, 400)
+        XCTAssertEqual(last.status, "New")
+        XCTAssertEqual(last.text, "Description")
+        XCTAssertEqual(last.previewImageURL, URL(string: "https://www.apple.com"))
     }
 
     private func record(id: String) -> EstateRecord {
@@ -72,9 +84,9 @@ class DataContainerTests: XCTestCase {
                             detailURL: URL(string: "https://www.apple.com")!,
                             id: id,
                             name: "Property",
-                            price: "0",
+                            price: 400,
                             status: "New",
-                            text: "",
+                            text: "Description",
                             previewImageURL: URL(string: "https://www.apple.com")!)
     }
 

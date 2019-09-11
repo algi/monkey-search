@@ -20,7 +20,7 @@ struct ContentView: View {
                         HStack {
                             Text(row.name)
                             Spacer()
-                            Text(row.price)
+                            Text("£\(row.price) pcm")
                                 .foregroundColor(.gray)
                         }
                     }

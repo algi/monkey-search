@@ -23,7 +23,7 @@ extension Estate {
         self.date = record.date
         self.externalID = record.id
         self.name = record.name
-        self.price = Int16(record.price) ?? 0
+        self.price = Double(record.price)
         self.status = record.status
         self.text = record.text
         self.previewImageURL = record.previewImageURL
@@ -38,7 +38,7 @@ extension EstateRecord {
         self.date = entity.date ?? Date()
         self.id = entity.externalID ?? "-1"
         self.name = entity.name ?? "No address"
-        self.price = "\(entity.price)"
+        self.price = Double(entity.price)
         self.status = entity.status ?? "New"
         self.text = entity.text ?? "No description"
         self.previewImageURL = entity.previewImageURL ?? URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1024px-Apple_logo_black.svg.png")!

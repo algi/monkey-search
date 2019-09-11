@@ -17,7 +17,7 @@ struct BrowserDetailView: View {
 
             HStack {
                 Text("Price:").fontWeight(.bold)
-                Text(entity.price)
+                Text("£\(entity.price) pcm")
             }
 
             HStack {
