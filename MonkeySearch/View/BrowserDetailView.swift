@@ -29,7 +29,7 @@ struct BrowserDetailView: View {
             Text(entity.text)
 
             Text("Photos:").fontWeight(.bold)
-            Text("No photos available.") // TODO: implement photos
+            previewImage()
 
             Spacer()
 
@@ -48,6 +48,16 @@ struct BrowserDetailView: View {
         .navigationBarItems(trailing: Button("Open in browser") {
             UIApplication.shared.open(self.entity.detailURL)
         })
+    }
+
+    private func previewImage() -> Image {
+        // TODO: do not load me on main thread + cache the image
+        if let data = try? Data(contentsOf: entity.previewImageURL), let image = UIImage(data: data) {
+            return Image(uiImage: image)
+        }
+        else {
+            return Image(systemName: "book")
+        }
     }
 }
 

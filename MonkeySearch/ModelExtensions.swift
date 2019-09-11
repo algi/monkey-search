@@ -41,6 +41,6 @@ extension EstateRecord {
         self.price = "\(entity.price)"
         self.status = entity.status ?? "New"
         self.text = entity.text ?? "No description"
-        self.previewImageURL = entity.previewImageURL
+        self.previewImageURL = entity.previewImageURL ?? URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1024px-Apple_logo_black.svg.png")!
     }
 }
