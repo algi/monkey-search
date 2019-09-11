@@ -18,6 +18,7 @@ struct EstateRecord: Identifiable {
     let price: String
     let status: String
     let text: String
+    let previewImageURL: URL?
 
 }
 
@@ -27,6 +28,14 @@ protocol AgencyParser {
 
 }
 
-enum ParserError: Error {
-    case missingField
+enum ParserError: LocalizedError {
+
+    case missingField(htmlFragment: String)
+
+    var errorDescription: String? {
+        switch self {
+            case .missingField(let htmlFragment):
+                return "Unable to parse fragment: '\(htmlFragment)'"
+        }
+    }
 }

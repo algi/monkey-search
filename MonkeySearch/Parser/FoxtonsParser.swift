@@ -17,17 +17,21 @@ class FoxtonsParser: NSObject, AgencyParser {
         let document = try HTML(html: html, encoding: .utf8)
         var result = [EstateRecord]()
 
-        for item in document.xpath("//div[@class='property_summary']") {
+        for element in document.xpath("//div[@class='property_wrapper']") {
 
             guard
-                let recordID = item.at_xpath("./@id")?.text,
-                let propertyName = item.at_xpath("./h6")?.text,
-                let detailLink = item.at_xpath("./h6/a/@href")?.text,
+                let recordID = element.at_xpath("./div/@id")?.text,
+                let propertyName = element.at_xpath("./div/h6")?.text,
+                let detailLink = element.at_xpath("./div/h6/a/@href")?.text,
                 let detailURL = URL(string: "\(FoxtonsParser.baseURL)\(detailLink)"),
-                let price = item.at_xpath("./h2/strong/data")?.text,
-                let description = item.at_xpath("./p[@class='description']")?.text
+                let price = element.at_xpath("./div/h2/strong/data")?.text,
+                let description = element.at_xpath("./div/p[@class='description']")?.text
             else {
-                throw ParserError.missingField // TODO: add field name
+                throw ParserError.missingField(htmlFragment: element.toHTML ?? "No HTML provided")
+            }
+
+            guard let previewImageURL = findPreviewImageURL(in: element) else {
+                throw ParserError.missingField(htmlFragment: element.toHTML ?? "No HTML provided")
             }
 
             let record = EstateRecord(agency: "Foxtons",
@@ -37,11 +41,23 @@ class FoxtonsParser: NSObject, AgencyParser {
                                       name: propertyName,
                                       price: "£\(price)",
                                       status: "New",
-                                      text: description.trimmingCharacters(in: CharacterSet.newlines))
+                                      text: description.trimmingCharacters(in: CharacterSet.newlines),
+                                      previewImageURL: URL(string: previewImageURL))
 
             result.append(record)
         }
 
         return result
+    }
+
+    private func findPreviewImageURL(in element: XMLElement) -> String? {
+
+        if let previewImageURL = element.at_xpath("./div/a[@class='property_photo_holder']/@style")?.text {
+            return String(previewImageURL
+                .dropFirst("background-image:url(".count)
+                .dropLast(");".count))
+        }
+
+        return element.at_xpath("./div/a[@class='property_photo_holder']/@data-src")?.text
     }
 }

@@ -6,11 +6,12 @@
         <attribute name="detailURL" optional="YES" attributeType="URI"/>
         <attribute name="externalID" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="previewImageURL" optional="YES" attributeType="URI"/>
         <attribute name="price" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="status" optional="YES" attributeType="String" defaultValueString="New"/>
         <attribute name="text" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Estate" positionX="-63" positionY="-18" width="128" height="163"/>
+        <element name="Estate" positionX="-63" positionY="-18" width="128" height="178"/>
     </elements>
 </model>

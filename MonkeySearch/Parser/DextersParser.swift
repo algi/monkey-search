@@ -25,9 +25,10 @@ class DextersParser: AgencyParser {
                 let recordID = item.at_xpath("./@data-property-id")?.text,
                 let name = item.at_xpath("./div/h3")?.text,
                 let price = item.at_xpath("./div/span/span/@data-price")?.text,
-                let text = item.at_xpath("./div/div")?.text
+                let text = item.at_xpath("./div/div")?.text,
+                let previewImageURL = URL(string: item.at_xpath("./div/a/img/@src")?.text ?? "")
             else {
-                throw ParserError.missingField // TODO: field name
+                throw ParserError.missingField(htmlFragment: item.toHTML ?? "No HTML provided")
             }
 
             let record = EstateRecord(agency: "Dexters",
@@ -37,7 +38,8 @@ class DextersParser: AgencyParser {
                                       name: name,
                                       price: "£\(price) pcm",
                                       status: "New",
-                                      text: text)
+                                      text: text,
+                                      previewImageURL: previewImageURL)
 
             result.append(record)
         }

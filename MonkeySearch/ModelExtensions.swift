@@ -26,6 +26,7 @@ extension Estate {
         self.price = Int16(record.price) ?? 0
         self.status = record.status
         self.text = record.text
+        self.previewImageURL = record.previewImageURL
     }
 }
 
@@ -40,5 +41,6 @@ extension EstateRecord {
         self.price = "\(entity.price)"
         self.status = entity.status ?? "New"
         self.text = entity.text ?? "No description"
+        self.previewImageURL = entity.previewImageURL
     }
 }

@@ -74,7 +74,8 @@ class DataContainerTests: XCTestCase {
                             name: "Property",
                             price: "0",
                             status: "New",
-                            text: "")
+                            text: "",
+                            previewImageURL: URL(string: "https://www.apple.com"))
     }
 
     private func insertFakeData(into container: NSPersistentContainer) {
