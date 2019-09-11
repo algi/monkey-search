@@ -25,12 +25,9 @@ class FoxtonsParser: NSObject, AgencyParser {
                 let detailLink = element.at_xpath("./div/h6/a/@href")?.text,
                 let detailURL = URL(string: "\(FoxtonsParser.baseURL)\(detailLink)"),
                 let price = element.at_xpath("./div/h2/strong/data")?.text,
-                let description = element.at_xpath("./div/p[@class='description']")?.text
+                let description = element.at_xpath("./div/p[@class='description']")?.text,
+                let previewImageURL = findPreviewImageURL(in: element)
             else {
-                throw ParserError.missingField(htmlFragment: element.toHTML ?? "No HTML provided")
-            }
-
-            guard let previewImageURL = findPreviewImageURL(in: element) else {
                 throw ParserError.missingField(htmlFragment: element.toHTML ?? "No HTML provided")
             }
 
