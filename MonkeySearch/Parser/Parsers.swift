@@ -16,10 +16,41 @@ struct EstateRecord: Identifiable {
     let id: String
     let name: String
     let price: Double
-    let status: String
+    let status: RecordStatus
     let text: String
     let previewImageURL: URL
 
+}
+
+enum RecordStatus {
+
+    case new
+    case visited
+    case hidden
+
+    static func from(string: String) -> RecordStatus {
+        switch string {
+            case "New":
+                return .new
+            case "Visited":
+                return .visited
+            case "Hidden":
+                return .hidden
+            default:
+                fatalError("Unknown status: \(string)")
+        }
+    }
+
+    func string() -> String {
+        switch self {
+            case .new:
+                return "New"
+            case .visited:
+                return "Visited"
+            case .hidden:
+                return "Hidden"
+        }
+    }
 }
 
 protocol AgencyParser {

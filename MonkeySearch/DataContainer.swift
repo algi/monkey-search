@@ -62,8 +62,8 @@ class DataContainer: NSObject {
             result.append(record)
         }
 
-        return result.filter { (record) -> Bool in
-            return record.status != "Hidden"
+        return result.filter { (record) in
+            return record.status != .hidden
         }.sorted { (first, second) in
             return first.date < second.date
         }

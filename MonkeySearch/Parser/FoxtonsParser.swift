@@ -37,7 +37,7 @@ class FoxtonsParser: NSObject, AgencyParser {
                                       id: recordID,
                                       name: propertyName,
                                       price: price,
-                                      status: "New",
+                                      status: .new,
                                       text: description.trimmingCharacters(in: CharacterSet.newlines),
                                       previewImageURL: previewImageURL)
 

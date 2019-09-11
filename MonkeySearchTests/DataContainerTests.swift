@@ -85,7 +85,7 @@ class DataContainerTests: XCTestCase {
                             id: id,
                             name: "Property",
                             price: 400,
-                            status: "New",
+                            status: .new,
                             text: "Description",
                             previewImageURL: URL(string: "https://www.apple.com")!)
     }

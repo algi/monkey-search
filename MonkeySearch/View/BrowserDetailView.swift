@@ -18,6 +18,10 @@ struct BrowserDetailView: View {
             HStack {
                 Text("Price:").fontWeight(.bold)
                 Text(CurrencyFormatter.shared.formattedPrice(entity.price))
+
+                Spacer()
+                Text(entity.status.string())
+                    .fontWeight(.bold)
             }
 
             HStack {
@@ -35,11 +39,11 @@ struct BrowserDetailView: View {
 
             HStack {
                 Button("Accept") {
-                    // TODO: implement Accept button
+                    self.acceptEstate()
                 }
                 Spacer()
                 Button("Deny") {
-                    // TODO: implement Deny button
+                    self.denyEstate()
                 }.foregroundColor(.red)
             }
         }
@@ -58,6 +62,14 @@ struct BrowserDetailView: View {
         else {
             return AnyView(Text("No preview image available."))
         }
+    }
+
+    private func acceptEstate() {
+        // TODO: implement me
+    }
+
+    private func denyEstate() {
+        // TODO: implement me
     }
 }
 

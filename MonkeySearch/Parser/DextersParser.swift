@@ -37,7 +37,7 @@ class DextersParser: AgencyParser {
                                       id: recordID,
                                       name: name,
                                       price: price,
-                                      status: "New",
+                                      status: .new,
                                       text: text,
                                       previewImageURL: previewImageURL)
 
