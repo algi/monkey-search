@@ -23,9 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     lazy var persistentContainer: NSPersistentContainer = {
-
         let container = NSPersistentContainer(name: "MonkeySearch")
-        container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
 
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
