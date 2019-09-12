@@ -34,9 +34,14 @@ class DataProviderTests: XCTestCase {
         let _ = provider.$data.subscribe(on: RunLoop.main)
             .dropFirst() // first call is initial data
             .sink { (records) in
-                recordsExpectation.fulfill()
-
                 XCTAssertEqual(records.count, 4)
+
+                XCTAssertEqual(records[0].id, "124872")
+                XCTAssertEqual(records[1].id, "123709")
+                XCTAssertEqual(records[2].id, "123862")
+                XCTAssertEqual(records[3].id, "124079")
+
+                recordsExpectation.fulfill()
             }
 
         wait(for: [recordsExpectation], timeout: 2)
@@ -70,7 +75,9 @@ class DataProviderTests: XCTestCase {
             .sink { (records) in
                 XCTAssertEqual(records.count, 3)
 
-                // TODO: check saved data too (in DataContainerTests)
+                XCTAssertEqual(records[0].id, "124872")
+                XCTAssertEqual(records[1].id, "123862")
+                XCTAssertEqual(records[2].id, "124079")
 
                 recordsExpectation.fulfill()
             }
