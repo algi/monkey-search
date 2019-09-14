@@ -18,7 +18,13 @@ struct ContentView: View {
                 ForEach(provider.data) { record in
                     NavigationLink(destination: self.detailView(for: record)) {
                         HStack {
-                            self.newRecordIndicator(record: record)
+                            if record.isNew {
+                                NewRecordIndicator()
+                            }
+                            else {
+                                NewRecordIndicator().hidden()
+                            }
+
                             Text(record.name)
                             Spacer()
                             Text(CurrencyFormatter.shared.formattedPrice(record.price))
@@ -42,19 +48,6 @@ struct ContentView: View {
         }
     }
 
-    func newRecordIndicator(record: EstateRecord) -> AnyView {
-        let indicator = Circle()
-            .frame(width: 10, height: 10, alignment: .center)
-            .foregroundColor(.blue)
-
-        if record.isNew {
-            return AnyView(indicator)
-        }
-        else {
-            return AnyView(indicator.hidden())
-        }
-    }
-
     func markAsViewed(record: EstateRecord) {
         provider.markAsViewed(record: record)
     }
@@ -62,6 +55,14 @@ struct ContentView: View {
     func markAsHidden(indexSet: IndexSet) {
         let records = indexSet.map { (index) in provider.data[index] }
         provider.markAsHidden(records: records)
+    }
+}
+
+struct NewRecordIndicator: View {
+    var body: some View {
+        Circle()
+            .frame(width: 10, height: 10, alignment: .center)
+            .foregroundColor(.blue)
     }
 }
 
