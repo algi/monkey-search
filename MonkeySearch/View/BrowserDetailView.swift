@@ -36,16 +36,6 @@ struct BrowserDetailView: View {
             previewImage()
 
             Spacer()
-
-            HStack {
-                Button("Accept") {
-                    self.acceptEstate()
-                }
-                Spacer()
-                Button("Deny") {
-                    self.denyEstate()
-                }.foregroundColor(.red)
-            }
         }
         .padding()
         .navigationBarTitle(entity.name)
@@ -55,21 +45,13 @@ struct BrowserDetailView: View {
     }
 
     private func previewImage() -> AnyView {
-        // TODO: do not load on main thread + cache the image
+        // TODO: cache the image + use Combine API
         if let data = try? Data(contentsOf: entity.previewImageURL), let image = UIImage(data: data) {
             return AnyView(Image(uiImage: image))
         }
         else {
             return AnyView(Text("No preview image available."))
         }
-    }
-
-    private func acceptEstate() {
-        // TODO: implement me
-    }
-
-    private func denyEstate() {
-        // TODO: implement me
     }
 }
 

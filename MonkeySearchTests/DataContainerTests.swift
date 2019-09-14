@@ -78,6 +78,30 @@ class DataContainerTests: XCTestCase {
         XCTAssertEqual(last.previewImageURL, URL(string: "https://www.apple.com"))
     }
 
+    func testMarkAsHidden() throws {
+
+        let container = InMemoryPersistentContainer()
+
+        let firstEstate = Estate(context: container.viewContext)
+        firstEstate.externalID = "1"
+        firstEstate.status = RecordStatus.new.string()
+        firstEstate.date = Date()
+
+        let secondEstate = Estate(context: container.viewContext)
+        secondEstate.externalID = "2"
+        secondEstate.status = RecordStatus.new.string()
+        secondEstate.date = Date()
+
+        let hiddenRecords = [
+            record(id: "1")
+        ]
+
+        try DataContainer(container: container).markAsHidden(records: hiddenRecords)
+
+        XCTAssertEqual(firstEstate.status, RecordStatus.hidden.string())
+        XCTAssertEqual(secondEstate.status, RecordStatus.new.string())
+    }
+
     private func record(id: String) -> EstateRecord {
         return EstateRecord(agency: "Foxtons",
                             date: Date(),

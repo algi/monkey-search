@@ -60,6 +60,20 @@ class DataProvider: ObservableObject {
             }
     }
 
+    func markAsHidden(records: [EstateRecord]) {
+
+        // ignore call for preview scenario
+        guard let container = container else { return }
+
+        do {
+            try container.markAsHidden(records: records)
+            try data = container.fetchData()
+        }
+        catch {
+            print("Unable to mark following records as hidden: \(records), error: \(error.localizedDescription)")
+        }
+    }
+
     /// Provides configuration either from the parameter, or default one.
     /// - Parameter configuration: external configuration
     private func readConfiguration(configuration: Configuration?) -> Configuration {

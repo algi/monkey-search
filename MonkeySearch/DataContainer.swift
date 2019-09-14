@@ -68,4 +68,24 @@ class DataContainer: NSObject {
             return first.date < second.date
         }
     }
+
+    /// Marks records as hidden.
+    /// - Parameter records: records to be marked
+    func markAsHidden(records: [EstateRecord]) throws {
+
+        let listOfIDs = records.map { (record) in
+            record.id
+        }
+
+        let request: NSFetchRequest<Estate> = Estate.fetchRequest()
+        request.predicate = NSPredicate(format: "externalID IN %@", listOfIDs)
+
+        let result = try container.viewContext.fetch(request)
+
+        for entity in result {
+            entity.status = RecordStatus.hidden.string()
+        }
+
+        try container.viewContext.save()
+    }
 }

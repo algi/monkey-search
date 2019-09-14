@@ -14,8 +14,8 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
-                List(provider.data) { row in
+            List {
+                ForEach(provider.data) { row in
                     NavigationLink(destination: BrowserDetailView(entity: row)) {
                         HStack {
                             Text(row.name)
@@ -24,6 +24,13 @@ struct ContentView: View {
                                 .foregroundColor(.gray)
                         }
                     }
+                }
+                .onDelete { (indexSet) in
+                    let records = indexSet.map { (index) -> EstateRecord in
+                        return self.provider.data[index]
+                    }
+
+                    self.provider.markAsHidden(records: records)
                 }
             }
             .navigationBarTitle("Browser")
