@@ -44,13 +44,13 @@ struct BrowserDetailView: View {
         })
     }
 
-    private func previewImage() -> AnyView {
+    private func previewImage() -> Image {
         // TODO: cache the image + use Combine API
         if let data = try? Data(contentsOf: entity.previewImageURL), let image = UIImage(data: data) {
-            return AnyView(Image(uiImage: image))
+            return Image(uiImage: image).resizable()
         }
         else {
-            return AnyView(Text("No preview image available."))
+            return Image(systemName: "eye.slash")
         }
     }
 }
