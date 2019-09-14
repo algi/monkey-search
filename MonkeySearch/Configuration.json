@@ -1,10 +1,16 @@
 {
-  "agencies": [
-    {
-      "name": "Dexters",
-      "filters": [
-        "https://www.dexters.co.uk/property-lettings/2-bedroom-properties-available-to-rent-in-muswell-hill-between-1500-and-2200"
-      ]
-    }
-  ]
+    "agencies": [
+        {
+            "name": "Dexters",
+            "filters": [
+                "https://www.dexters.co.uk/property-lettings/2-bedroom-properties-available-to-rent-in-muswell-hill-between-1500-and-2200"
+            ]
+        },
+        {
+            "name": "Foxtons",
+            "filters": [
+                "https://www.foxtons.co.uk/properties-to-rent/muswell-hill-n10/?price_to=500&bedrooms_from=2"
+            ]
+        }
+    ]
 }
