@@ -78,8 +78,26 @@ class DataContainerTests: XCTestCase {
         XCTAssertEqual(last.previewImageURL, URL(string: "https://www.apple.com"))
     }
 
-    func testMarkAsHidden() throws {
+    func testMarkAsViewed() throws {
+        let container = InMemoryPersistentContainer()
 
+        let firstEstate = Estate(context: container.viewContext)
+        firstEstate.externalID = "1"
+        firstEstate.status = RecordStatus.new.string()
+        firstEstate.date = Date()
+
+        let secondEstate = Estate(context: container.viewContext)
+        secondEstate.externalID = "2"
+        secondEstate.status = RecordStatus.new.string()
+        secondEstate.date = Date()
+
+        try DataContainer(container: container).markAsViewed(record: record(id: "1"))
+
+        XCTAssertEqual(firstEstate.status, RecordStatus.visited.string())
+        XCTAssertEqual(secondEstate.status, RecordStatus.new.string())
+    }
+
+    func testMarkAsHidden() throws {
         let container = InMemoryPersistentContainer()
 
         let firstEstate = Estate(context: container.viewContext)

@@ -69,6 +69,21 @@ class DataContainer: NSObject {
         }
     }
 
+    func markAsViewed(record: EstateRecord) throws {
+        let request: NSFetchRequest<Estate> = Estate.fetchRequest()
+        request.predicate = NSPredicate(format: "externalID == %@", record.id)
+
+        let result = try container.viewContext.fetch(request)
+
+        guard let entity = result.first else {
+            fatalError("Unexpected number '\(result.count)' of entities with ID '\(record.id)'.")
+        }
+
+        entity.status = RecordStatus.visited.string()
+
+        try container.viewContext.save()
+    }
+
     /// Marks records as hidden.
     /// - Parameter records: records to be marked
     func markAsHidden(records: [EstateRecord]) throws {

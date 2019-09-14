@@ -60,8 +60,20 @@ class DataProvider: ObservableObject {
             }
     }
 
-    func markAsHidden(records: [EstateRecord]) {
+    func markAsViewed(record: EstateRecord) {
+        // ignore call for preview scenario
+        guard let container = container else { return }
 
+        do {
+            try container.markAsViewed(record: record)
+            try data = container.fetchData()
+        }
+        catch {
+            print("Unable to mark record: \(record) as viewed. Error: \(error.localizedDescription)")
+        }
+    }
+
+    func markAsHidden(records: [EstateRecord]) {
         // ignore call for preview scenario
         guard let container = container else { return }
 

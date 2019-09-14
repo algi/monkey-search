@@ -15,23 +15,18 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(provider.data) { row in
-                    NavigationLink(destination: BrowserDetailView(entity: row)) {
+                ForEach(provider.data) { record in
+                    NavigationLink(destination: self.detailView(for: record)) {
                         HStack {
-                            Text(row.name)
+                            self.newRecordIndicator(record: record)
+                            Text(record.name)
                             Spacer()
-                            Text(CurrencyFormatter.shared.formattedPrice(row.price))
+                            Text(CurrencyFormatter.shared.formattedPrice(record.price))
                                 .foregroundColor(.gray)
                         }
                     }
                 }
-                .onDelete { (indexSet) in
-                    let records = indexSet.map { (index) -> EstateRecord in
-                        return self.provider.data[index]
-                    }
-
-                    self.provider.markAsHidden(records: records)
-                }
+                .onDelete(perform: markAsHidden)
             }
             .navigationBarTitle("Browser")
             .navigationBarItems(trailing: Button("Reload") {
@@ -40,12 +35,41 @@ struct ContentView: View {
             .navigationViewStyle(DoubleColumnNavigationViewStyle())
         }
     }
+
+    func detailView(for record: EstateRecord) -> some View {
+        return BrowserDetailView(entity: record).onAppear {
+            self.markAsViewed(record: record)
+        }
+    }
+
+    func newRecordIndicator(record: EstateRecord) -> AnyView {
+        let indicator = Circle()
+            .frame(width: 10, height: 10, alignment: .center)
+            .foregroundColor(.blue)
+
+        if record.isNew {
+            return AnyView(indicator)
+        }
+        else {
+            return AnyView(indicator.hidden())
+        }
+    }
+
+    func markAsViewed(record: EstateRecord) {
+        provider.markAsViewed(record: record)
+    }
+
+    func markAsHidden(indexSet: IndexSet) {
+        let records = indexSet.map { (index) in provider.data[index] }
+        provider.markAsHidden(records: records)
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(provider: DataProvider(data: [
-            previewData()
+            previewData(id: "1", status: .new),
+            previewData(id: "2", status: .visited)
         ]))
     }
 }

@@ -20,6 +20,9 @@ struct EstateRecord: Identifiable {
     let text: String
     let previewImageURL: URL
 
+    var isNew: Bool {
+        return status == .new
+    }
 }
 
 enum RecordStatus {
