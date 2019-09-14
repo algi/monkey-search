@@ -16,7 +16,7 @@ func previewData(id: String = "1", status: RecordStatus = .new) -> EstateRecord 
                         name: "44 Priory Road",
                         price: 400,
                         status: status,
-                        text: "An excellent two bedroom, first floor apartment located in an imposing period conversion and boasting high ceilings and wood floors, plus access to spacious communal gardens.",
+                        text: "An excellent two bedroom, first floor apartment located in an imposing period conversion and boasting high ceilings and wood floors, plus access to spacious communal gardens. An excellent two bedroom, first floor apartment located in an imposing period conversion and boasting high ceilings and wood floors, plus access to spacious communal gardens.",
                         previewImageURL: URL(string: "https://assets.foxtons.co.uk/w/480/1565109473/chpk2750858-1.jpg")!
                         )
 }

@@ -30,7 +30,7 @@ struct BrowserDetailView: View {
             }
 
             Text("Description:").fontWeight(.bold)
-            Text(entity.text)
+            Text(entity.text).lineLimit(10)
 
             Text("Photos:").fontWeight(.bold)
             previewImage()
@@ -45,6 +45,8 @@ struct BrowserDetailView: View {
     }
 
     private func previewImage() -> Image {
+        print(entity.text)
+
         // TODO: cache the image + use Combine API
         if let data = try? Data(contentsOf: entity.previewImageURL), let image = UIImage(data: data) {
             return Image(uiImage: image).resizable()
