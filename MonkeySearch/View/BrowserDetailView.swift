@@ -33,7 +33,7 @@ struct BrowserDetailView: View {
             Text(entity.text).lineLimit(10)
 
             Text("Photos:").fontWeight(.bold)
-            previewImage()
+            previewImage().scaledToFit()
 
             Spacer()
         }
@@ -57,8 +57,17 @@ struct BrowserDetailView: View {
 
 struct BrowserDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            BrowserDetailView(entity: previewData())
+        Group {
+            NavigationView {
+                BrowserDetailView(entity: previewData())
+            }
+            .previewDevice("iPhone XR")
+
+            NavigationView {
+                List { Text("") }
+                BrowserDetailView(entity: previewData())
+            }
+            .previewDevice("iPad Pro 11")
         }
     }
 }
